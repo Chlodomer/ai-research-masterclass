@@ -508,37 +508,59 @@
   For every paper the AI suggests: <strong>click the DOI or search the title</strong>. Confirm it exists, the title matches, and the abstract aligns with what the AI claims. AI can still fabricate citations. Never cite a source you haven't personally confirmed.
 </div>
 
-<!-- Step 2.2: Intermediate -->
+<!-- Step 2.2a: Generate Deep Research Prompt -->
 <div class="prompt-card">
   <div class="prompt-card-header">
-    <div class="step-badge biblio">Level 2 &mdash; Intermediate</div>
-    <div class="step-title">Deep Research</div>
+    <div class="step-badge biblio">Level 2a &mdash; Intermediate</div>
+    <div class="step-title">Generate a Deep Research Prompt</div>
   </div>
-  <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><span class="hl-biblio">Conduct a comprehensive literature review</span> <span class="hl-context">for my research project.</span>
+  <div class="annotations">
+    <p>Instead of writing a deep research prompt from scratch, let the AI write it for you. It already has your full context brief, so it knows your terms, your scholars, and your boundaries. It will compose a better search prompt than you would write cold.</p>
+  </div>
+  <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><span class="hl-context">Based on my context brief,</span> <span class="hl-biblio">write a comprehensive deep research prompt</span> that will produce an exhaustive literature review for my project.
 
-<span class="hl-structure">Organize findings by theme, not chronologically. Cover:
-1. Foundational work establishing the problem
-2. Current methodological approaches
-3. Key gaps in the literature
-4. Recent innovations (2023-2026)</span>
+<span class="hl-structure">The prompt should include:
+- My research question and specific aims
+- The key scholars and foundational texts to anchor the search
+- The boundaries (what NOT to include)
+- Instructions to organize by theme, not chronologically
+- A request for full citations with DOIs</span>
 
-<span class="hl-biblio">For each paper, provide the full citation and DOI where available.</span>
-
-<span class="hl-constraint">Stay within the research boundaries I defined. Flag any papers you are uncertain about.</span></div>
+<span class="hl-constraint">Write it as a single, self-contained prompt I can paste into Deep Research.</span></div>
   <div class="annotations">
     <h4>Why This Works</h4>
     <div class="anno-row">
+      <div class="anno-color context"></div>
+      <div class="anno-text"><strong>"Based on my context brief"</strong> leverages everything you've already provided. The AI assembles your terms, scholars, aims, and exclusions into a search prompt automatically.</div>
+    </div>
+    <div class="anno-row">
       <div class="anno-color biblio"></div>
-      <div class="anno-text"><strong>"Comprehensive literature review"</strong> triggers deep research mode in ChatGPT (and similar features in other tools). This runs for 10-20 minutes and searches widely.</div>
+      <div class="anno-text"><strong>"Comprehensive deep research prompt"</strong> is a meta-task: the AI writes instructions for a research agent. It knows what makes a good research query because it is one.</div>
     </div>
     <div class="anno-row">
       <div class="anno-color structure"></div>
-      <div class="anno-text"><strong>"Organize by theme"</strong> produces output that maps onto a Background section. <strong>Four categories</strong> give the AI a framework so it doesn't dump everything in one pile.</div>
+      <div class="anno-text"><strong>Five bullet points</strong> tell the AI exactly what ingredients the prompt needs. Without this, it will produce something generic. With it, the prompt is tailored to your project.</div>
     </div>
     <div class="anno-row">
       <div class="anno-color constraint"></div>
-      <div class="anno-text"><strong>"Flag any papers you are uncertain about"</strong> gives the AI permission to be honest. Without this, it will present everything with equal confidence.</div>
+      <div class="anno-text"><strong>"Self-contained"</strong> means the output can be pasted directly into Deep Research without editing. The AI packages everything into one block.</div>
     </div>
+  </div>
+</div>
+
+<!-- Step 2.2b: Launch Deep Research -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge biblio">Level 2b &mdash; Intermediate</div>
+    <div class="step-title">Launch Deep Research</div>
+  </div>
+  <div class="annotations">
+    <p><strong>ChatGPT:</strong> Open a new chat &rarr; select Deep Research mode (or type your prompt and choose "Deep Research" from the model picker).<br>
+    <strong>Gemini:</strong> Open a new chat &rarr; click "Deep Research" in the tools menu.<br>
+    <strong>Claude:</strong> Open a new chat &rarr; use the extended thinking / research mode.</p>
+    <p style="margin-top:8px;">Paste the prompt the AI generated for you. Review the plan it proposes. If it looks right, launch it. This will run for 10-30 minutes and produce a structured report.</p>
+    <p style="margin-top:8px;"><strong>While it runs:</strong> you can continue working in other threads within your project. You don't need to wait.</p>
+    <p style="margin-top:8px;"><strong>When it finishes:</strong> apply the <a href="verification.html">Verification Checklist</a> to every citation before using it.</p>
   </div>
 </div>
 
