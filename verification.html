@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verification Checklist — AI for Research Workshop</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f5faf0;
+    --card: #ffffff;
+    --border: #d4e4c8;
+    --text: #1a1a1a;
+    --muted: #4a6040;
+    --green: #004128;
+    --pass: #16a34a;
+    --pass-bg: #f0fdf4;
+    --pass-border: #bbf7d0;
+    --fail: #dc2626;
+    --fail-bg: #fef2f2;
+    --fail-border: #fecaca;
+    --warn: #d97706;
+    --warn-bg: #fffbeb;
+    --warn-border: #fde68a;
+    --blue: #78CDE6;
+    --blue-dark: #0e5f7a;
+    --blue-bg: #eef8fc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text);
+    background: var(--bg);
+    padding: 24px 16px 80px;
+  }
+
+  .container {
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  /* BIU Header */
+  .biu-header {
+    background: linear-gradient(135deg, #004128, #00280F);
+    color: white;
+    padding: 18px 28px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .biu-header .badge {
+    background: #78CDE6; color: #00280F; font-size: 10px; font-weight: 700;
+    padding: 4px 14px; border-radius: 20px; letter-spacing: 0.06em;
+  }
+  .biu-header .date { font-size: 12px; opacity: 0.6; margin-top: 6px; }
+  .biu-header .right-side { display: flex; align-items: center; gap: 10px; }
+  .biu-header .uni-text { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.3; }
+  .biu-header .uni-text .he { font-size: 11px; font-weight: 700; }
+  .biu-header .uni-text .en { font-size: 9px; color: #78CDE6; letter-spacing: 0.03em; }
+  .biu-header .logo-circle {
+    width: 40px; height: 40px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #004128;
+  }
+  .biu-header .logo-circle img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.45); }
+
+  .title-bar {
+    background: #eef6e6;
+    border-bottom: 3px solid #78CDE6;
+    border-radius: 0 0 12px 12px;
+    padding: 22px 28px;
+    margin-bottom: 32px;
+    text-align: center;
+    position: relative;
+  }
+  .title-bar::after {
+    content: ''; position: absolute; bottom: -3px; left: 0; width: 80px; height: 3px; background: var(--green);
+  }
+  .title-bar h1 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 36px; font-weight: 400; font-style: italic; color: var(--green); margin-bottom: 6px;
+  }
+  .title-bar .sub { font-size: 15px; color: var(--muted); }
+
+  /* Intro */
+  .intro {
+    background: var(--fail-bg);
+    border: 1px solid var(--fail-border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .intro .intro-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--fail); margin-bottom: 6px;
+  }
+
+  /* Gate cards */
+  .gate {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .gate-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .gate-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+    background: var(--green);
+  }
+
+  .gate-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .gate-body {
+    padding: 18px 22px;
+  }
+
+  .gate-action {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--blue-dark);
+    margin-bottom: 10px;
+  }
+
+  .gate-how {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    line-height: 1.55;
+  }
+
+  .outcome-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .outcome {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .outcome.pass {
+    background: var(--pass-bg);
+    border: 1px solid var(--pass-border);
+    color: #166534;
+  }
+  .outcome.fail {
+    background: var(--fail-bg);
+    border: 1px solid var(--fail-border);
+    color: #991b1b;
+  }
+  .outcome .outcome-label {
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .gotcha {
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #92400e;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  .gotcha strong { color: #78350f; }
+
+  /* Connector arrow */
+  .connector {
+    text-align: center;
+    color: var(--border);
+    font-size: 24px;
+    margin: -8px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Summary */
+  .summary-card {
+    background: var(--card);
+    border: 2px solid var(--green);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 28px;
+  }
+  .summary-card h3 {
+    font-size: 18px; font-weight: 600; color: var(--green); margin-bottom: 14px;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+  .summary-item {
+    padding: 14px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .summary-item.s-pass { background: var(--pass-bg); border: 1px solid var(--pass-border); }
+  .summary-item.s-warn { background: var(--warn-bg); border: 1px solid var(--warn-border); }
+  .summary-item.s-fail { background: var(--fail-bg); border: 1px solid var(--fail-border); }
+  .summary-item .s-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .summary-item.s-pass .s-label { color: var(--pass); }
+  .summary-item.s-warn .s-label { color: var(--warn); }
+  .summary-item.s-fail .s-label { color: var(--fail); }
+  .summary-item .s-text { font-size: 13px; line-height: 1.4; }
+
+  /* Rule of thumb */
+  .rule {
+    background: var(--blue-bg);
+    border: 1px solid #b0dff0;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 24px;
+    text-align: center;
+  }
+  .rule .rule-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--blue-dark); margin-bottom: 8px;
+  }
+  .rule .rule-text {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--blue-dark);
+    line-height: 1.4;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  footer a { color: var(--green); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="biu-header">
+  <div>
+    <div class="badge">AI INITIATIVES</div>
+    <div class="date">April 16, 2026</div>
+  </div>
+  <div class="right-side">
+    <div class="uni-text">
+      <div class="he">אוניברסיטת בר-אילן</div>
+      <div class="en">Bar-Ilan University</div>
+    </div>
+    <div class="logo-circle">
+      <img src="biu-icon-tight.png" alt="BIU">
+    </div>
+  </div>
+</div>
+<div class="title-bar">
+  <h1>Verification Checklist</h1>
+  <div class="sub">How to authenticate AI-suggested bibliography</div>
+</div>
+
+<!-- INTRO -->
+<div class="intro">
+  <div class="intro-label">Why This Matters</div>
+  AI tools fabricate citations. Not always, not even often with current models, but often enough that a single unverified reference in a grant proposal or publication can destroy your credibility. The solution is not to avoid AI for literature discovery. It is to build a verification habit that becomes automatic. This checklist is the method.
+</div>
+
+<!-- GATE 1 -->
+<div class="gate">
+  <div class="gate-header">
+    <div class="gate-num">1</div>
+    <div class="gate-title">Does the DOI resolve?</div>
+  </div>
+  <div class="gate-body">
+    <div class="gate-action">Click the DOI link the AI provided. Or paste it into doi.org.</div>
+    <div class="gate-how">A DOI (Digital Object Identifier) is a permanent link to a published work. If the AI gives you one, it should take you to the publisher's page for that paper.</div>
+    <div class="outcome-row">
+      <div class="outcome pass">
+        <div class="outcome-label">Pass</div>
+        You land on a publisher page (Elsevier, Springer, Wiley, JSTOR, etc.) showing the paper. Proceed to Gate 2.
+      </div>
+      <div class="outcome fail">
+        <div class="outcome-label">Fail</div>
+        404 error, "DOI not found," or you land on a completely different paper. The citation may be fabricated.
+      </div>
+    </div>
+    <div class="gotcha"><strong>Common AI behavior:</strong> Inventing a DOI that looks structurally correct (10.xxxx/xxxx) but doesn't point anywhere. Also: giving the DOI of a real paper but attributing it to the wrong authors or title.</div>
+  </div>
+</div>
+
+<div class="connector">&#9660;</div>
+
+<!-- GATE 2 -->
+<div class="gate">
+  <div class="gate-header">
+    <div class="gate-num">2</div>
+    <div class="gate-title">Does the title match?</div>
+  </div>
+  <div class="gate-body">
+    <div class="gate-action">Compare the title the AI gave you with the title on the publisher's page.</div>
+    <div class="gate-how">Read both carefully. Don't skim. AI sometimes gets titles 90% right but changes a key word, which can mean the paper is about something subtly different.</div>
+    <div class="outcome-row">
+      <div class="outcome pass">
+        <div class="outcome-label">Pass</div>
+        Title matches exactly or differs only in minor punctuation. Proceed to Gate 3.
+      </div>
+      <div class="outcome fail">
+        <div class="outcome-label">Fail</div>
+        Title is different, even partially. The AI may have merged two real papers into one fictional citation.
+      </div>
+    </div>
+    <div class="gotcha"><strong>Common AI behavior:</strong> "Approximate titles" that sound like the real paper but aren't. Also: correct title but wrong year, which may mean you're looking at a different edition or a different paper entirely.</div>
+  </div>
+</div>
+
+<div class="connector">&#9660;</div>
+
+<!-- GATE 3 -->
+<div class="gate">
+  <div class="gate-header">
+    <div class="gate-num">3</div>
+    <div class="gate-title">Do the authors match?</div>
+  </div>
+  <div class="gate-body">
+    <div class="gate-action">Check that the authors the AI listed are the actual authors on the publisher's page.</div>
+    <div class="gate-how">Pay attention to first authors especially. AI sometimes assigns real papers to the wrong scholar, or adds/removes co-authors.</div>
+    <div class="outcome-row">
+      <div class="outcome pass">
+        <div class="outcome-label">Pass</div>
+        Authors match (order and names). Proceed to Gate 4.
+      </div>
+      <div class="outcome fail">
+        <div class="outcome-label">Fail</div>
+        Wrong authors, missing authors, or authors from a different paper. The citation is unreliable even if the paper itself is real.
+      </div>
+    </div>
+    <div class="gotcha"><strong>Common AI behavior:</strong> Confidently attributing a well-known finding to the wrong researcher. Also: inventing a plausible author name that doesn't exist. Google Scholar is your friend here.</div>
+  </div>
+</div>
+
+<div class="connector">&#9660;</div>
+
+<!-- GATE 4 -->
+<div class="gate">
+  <div class="gate-header">
+    <div class="gate-num">4</div>
+    <div class="gate-title">Does the abstract support the AI's claim?</div>
+  </div>
+  <div class="gate-body">
+    <div class="gate-action">Read the abstract on the publisher's page. Compare it to what the AI said the paper contributes.</div>
+    <div class="gate-how">This is the most important gate. The paper can be real, the title correct, the authors right, and the AI can still misrepresent what the paper actually argues. This is not hallucination; it's misattribution, and it's harder to catch.</div>
+    <div class="outcome-row">
+      <div class="outcome pass">
+        <div class="outcome-label">Pass</div>
+        The abstract confirms the AI's characterization of the paper's contribution. Proceed to Gate 5.
+      </div>
+      <div class="outcome fail">
+        <div class="outcome-label">Fail</div>
+        The paper exists but argues something different from what the AI claimed. Do not cite it for the claim the AI attributed to it.
+      </div>
+    </div>
+    <div class="gotcha"><strong>Common AI behavior:</strong> Correctly identifying a paper as relevant to your topic but mischaracterizing its conclusion. Also: presenting a paper's secondary finding as its main argument, or importing a claim from one paper into the description of another.</div>
+  </div>
+</div>
+
+<div class="connector">&#9660;</div>
+
+<!-- GATE 5 -->
+<div class="gate">
+  <div class="gate-header">
+    <div class="gate-num">5</div>
+    <div class="gate-title">Can you access the full text?</div>
+  </div>
+  <div class="gate-body">
+    <div class="gate-action">Try to download the PDF through your university library or database access.</div>
+    <div class="gate-how">If you plan to cite a paper in a proposal, you need to have read it, not just the abstract. This gate is about research integrity: you should never cite a paper you haven't read.</div>
+    <div class="outcome-row">
+      <div class="outcome pass">
+        <div class="outcome-label">Pass</div>
+        You have the full text. Download it and upload it to your AI project for context building.
+      </div>
+      <div class="outcome fail">
+        <div class="outcome-label">Not a Fail, But a Flag</div>
+        If you can't access it, don't cite it yet. Bookmark it, try interlibrary loan, or check if the author posted a preprint. Do not rely on the AI's summary of a paper you haven't read.
+      </div>
+    </div>
+    <div class="gotcha"><strong>Reminder:</strong> University database access (through the BIU library portal) covers most major publishers. If a paper is behind a paywall you can't reach, check the author's personal page, ResearchGate, or institutional repository for a free version.</div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary-card">
+  <h3>After All Five Gates</h3>
+  <div class="summary-grid">
+    <div class="summary-item s-pass">
+      <div class="s-label">All Pass</div>
+      <div class="s-text">Citation is verified. Safe to use. Upload the PDF to your project for deeper work.</div>
+    </div>
+    <div class="summary-item s-warn">
+      <div class="s-label">Gate 4 Fails</div>
+      <div class="s-text">Paper is real but AI mischaracterized it. Re-read the abstract. You may still want the paper, just not for the reason the AI suggested.</div>
+    </div>
+    <div class="summary-item s-fail">
+      <div class="s-label">Gates 1-3 Fail</div>
+      <div class="s-text">Citation is fabricated or corrupted. Discard it. Ask the AI: "This citation appears to be incorrect. Can you verify it or suggest an alternative?"</div>
+    </div>
+  </div>
+</div>
+
+<!-- RULE -->
+<div class="rule">
+  <div class="rule-label">The Rule</div>
+  <div class="rule-text">If you haven't clicked the DOI, read the abstract,<br>and confirmed the claim, you haven't verified it.<br>Everything else is trust, and trust is not a method.</div>
+</div>
+
+<!-- SPECIFIC CLAIMS -->
+<div class="gate" style="margin-top: 28px;">
+  <div class="gate-header">
+    <div class="gate-num" style="background: var(--warn);">+</div>
+    <div class="gate-title">Bonus: Verifying Specific Claims Within a Paper</div>
+  </div>
+  <div class="gate-body">
+    <div class="gate-how">Once a paper passes all five gates and you've uploaded it to your AI project, you can ask the AI to extract specific claims: statistics, dates, direct quotes. But these need verification too.</div>
+    <div class="gate-action">Ask: "Where in the paper do you find this claim? Give me the page number and a direct quote."</div>
+    <div class="gate-how">Then open the PDF and Ctrl+F (or Cmd+F) the quote. If it's there, you've confirmed it. If it's not, the AI paraphrased or invented it.</div>
+    <div class="gotcha"><strong>Why this matters for proposals:</strong> A grant reviewer who checks your citations and finds a misattributed claim will question everything else in the proposal. One bad citation costs more than the time it takes to verify ten good ones.</div>
+  </div>
+</div>
+
+<footer>
+  AI for Research Master Class &bull; Prof. Yaniv Fox &bull; Bar-Ilan University &bull; April 2026<br>
+  <a href="https://chlodomer.github.io/ai-research-masterclass/workshop-guide.html">Workshop Guide</a> &bull;
+  <a href="https://chlodomer.github.io/ai-research-masterclass/">Context Brief</a> &bull;
+  <a href="https://github.com/Chlodomer/ai-research-masterclass">GitHub</a>
+</footer>
+
+</div>
+
+</body>
+</html>
