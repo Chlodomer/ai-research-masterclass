@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workshop Guide — AI for Research</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f5faf0;
+    --card: #ffffff;
+    --border: #d4e4c8;
+    --text: #1a1a1a;
+    --muted: #4a6040;
+    --green: #004128;
+    --green-med: #006937;
+    --mint: #eef6e6;
+    --blue: #78CDE6;
+    --blue-dark: #0e5f7a;
+    --blue-light: #eef8fc;
+    --amber: #d97706;
+    --amber-light: #fffbeb;
+    --teal: #0d9488;
+    --teal-light: #f0fdfa;
+    --purple: #7c3aed;
+    --purple-light: #f5f3ff;
+    --rose: #e11d48;
+    --rose-light: #fff1f2;
+
+    /* Module colors */
+    --c-context: #004128;
+    --c-context-bg: #e8f4e0;
+    --c-context-border: #b8d4a8;
+    --c-biblio: #0e5f7a;
+    --c-biblio-bg: #eef8fc;
+    --c-biblio-border: #b0dff0;
+    --c-build: #92400e;
+    --c-build-bg: #fef3c7;
+    --c-build-border: #fde68a;
+    --c-proposal: #7c3aed;
+    --c-proposal-bg: #f5f3ff;
+    --c-proposal-border: #ddd6fe;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text);
+    background: var(--bg);
+    padding: 24px 16px 80px;
+  }
+
+  .container {
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  /* BIU Header */
+  .biu-header {
+    background: linear-gradient(135deg, #004128, #00280F);
+    color: white;
+    padding: 18px 28px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .biu-header .badge {
+    background: #78CDE6;
+    color: #00280F;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.06em;
+  }
+  .biu-header .date { font-size: 12px; opacity: 0.6; margin-top: 6px; }
+  .biu-header .right-side { display: flex; align-items: center; gap: 10px; }
+  .biu-header .uni-text { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.3; }
+  .biu-header .uni-text .he { font-size: 11px; font-weight: 700; }
+  .biu-header .uni-text .en { font-size: 9px; color: #78CDE6; letter-spacing: 0.03em; }
+  .biu-header .logo-circle {
+    width: 40px; height: 40px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #004128;
+  }
+  .biu-header .logo-circle img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.45); }
+
+  .title-bar {
+    background: #eef6e6;
+    border-bottom: 3px solid #78CDE6;
+    border-radius: 0 0 12px 12px;
+    padding: 22px 28px;
+    margin-bottom: 32px;
+    text-align: center;
+    position: relative;
+  }
+  .title-bar::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--green);
+  }
+  .title-bar h1 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 36px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+  .title-bar .sub {
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  /* Phase headers */
+  .phase {
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  .phase-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+  .phase-bar.context { background: var(--c-context-bg); border-left: 4px solid var(--c-context); }
+  .phase-bar.biblio { background: var(--c-biblio-bg); border-left: 4px solid var(--c-biblio); }
+  .phase-bar.build { background: var(--c-build-bg); border-left: 4px solid var(--c-build); }
+  .phase-bar.proposal { background: var(--c-proposal-bg); border-left: 4px solid var(--c-proposal); }
+
+  .phase-num {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .phase-bar.context .phase-num { color: var(--c-context); }
+  .phase-bar.biblio .phase-num { color: var(--c-biblio); }
+  .phase-bar.build .phase-num { color: var(--c-build); }
+  .phase-bar.proposal .phase-num { color: var(--c-proposal); }
+
+  .phase-title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .phase-bar.context .phase-title { color: var(--c-context); }
+  .phase-bar.biblio .phase-title { color: var(--c-biblio); }
+  .phase-bar.build .phase-title { color: var(--c-build); }
+  .phase-bar.proposal .phase-title { color: var(--c-proposal); }
+
+  .phase-time {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.6;
+  }
+
+  .phase-desc {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding: 0 4px;
+  }
+
+  /* Prompt cards */
+  .prompt-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .prompt-card-header {
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+    background: #fafaf8;
+  }
+  .prompt-card-header .step-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 6px;
+  }
+  .step-badge.context { background: var(--c-context-bg); color: var(--c-context); border: 1px solid var(--c-context-border); }
+  .step-badge.biblio { background: var(--c-biblio-bg); color: var(--c-biblio); border: 1px solid var(--c-biblio-border); }
+  .step-badge.build { background: var(--c-build-bg); color: var(--c-build); border: 1px solid var(--c-build-border); }
+  .step-badge.proposal { background: var(--c-proposal-bg); color: var(--c-proposal); border: 1px solid var(--c-proposal-border); }
+
+  .prompt-card-header .step-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .prompt-block {
+    background: #1a1a2e;
+    color: #e8e8f0;
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', 'Menlo', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    position: relative;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .prompt-block .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.6);
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .prompt-block .copy-btn:hover {
+    background: rgba(255,255,255,0.2);
+    color: white;
+  }
+
+  /* Colored spans inside prompts */
+  .prompt-block .hl-context { color: #86efac; }
+  .prompt-block .hl-biblio { color: #78CDE6; }
+  .prompt-block .hl-build { color: #fcd34d; }
+  .prompt-block .hl-proposal { color: #c4b5fd; }
+  .prompt-block .hl-constraint { color: #fda4af; }
+  .prompt-block .hl-structure { color: #fdba74; }
+
+  /* Annotation section */
+  .annotations {
+    padding: 18px 24px;
+  }
+  .annotations h4 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .anno-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .anno-color {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    margin-top: 3px;
+  }
+  .anno-color.context { background: #86efac; }
+  .anno-color.biblio { background: #78CDE6; }
+  .anno-color.build { background: #fcd34d; }
+  .anno-color.proposal { background: #c4b5fd; }
+  .anno-color.constraint { background: #fda4af; }
+  .anno-color.structure { background: #fdba74; }
+
+  .anno-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .anno-text strong {
+    font-weight: 600;
+  }
+
+  /* Info boxes */
+  .info-box {
+    background: var(--mint);
+    border: 1px solid var(--c-context-border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .info-box .info-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 2px solid var(--border);
+    margin: 32px 0;
+    opacity: 0.5;
+  }
+
+  /* Break */
+  .break-card {
+    background: linear-gradient(135deg, #004128, #006937);
+    color: white;
+    border-radius: 10px;
+    padding: 18px 24px;
+    text-align: center;
+    margin: 32px 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 48px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  footer a { color: var(--green); text-decoration: none; }
+
+  @media print {
+    body { font-size: 12px; background: white; padding: 0; }
+    .container { max-width: 100%; width: 100%; }
+    .prompt-block { font-size: 11px; }
+    .phase-bar { break-after: avoid; }
+    .prompt-card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="biu-header">
+  <div>
+    <div class="badge">AI INITIATIVES</div>
+    <div class="date">April 16, 2026</div>
+  </div>
+  <div class="right-side">
+    <div class="uni-text">
+      <div class="he">אוניברסיטת בר-אילן</div>
+      <div class="en">Bar-Ilan University</div>
+    </div>
+    <div class="logo-circle">
+      <img src="biu-icon-tight.png" alt="BIU">
+    </div>
+  </div>
+</div>
+<div class="title-bar">
+  <h1>Workshop Guide</h1>
+  <div class="sub">AI for Research: From Context to Proposal &bull; Prof. Yaniv Fox</div>
+</div>
+
+<!-- COLOR LEGEND -->
+<div class="info-box">
+  <div class="info-label">How to Read This Guide</div>
+  Each prompt is color-coded. The colors tell you <em>why</em> each part of the prompt works:
+  <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px;">
+    <span style="display: flex; align-items: center; gap: 6px;"><span class="anno-color context"></span> <strong style="font-size:13px;">Context</strong></span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span class="anno-color biblio"></span> <strong style="font-size:13px;">Bibliography</strong></span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span class="anno-color build"></span> <strong style="font-size:13px;">Context Building</strong></span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span class="anno-color proposal"></span> <strong style="font-size:13px;">Proposal</strong></span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span class="anno-color structure"></span> <strong style="font-size:13px;">Structure</strong></span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span class="anno-color constraint"></span> <strong style="font-size:13px;">Constraints</strong></span>
+  </div>
+</div>
+
+<!-- ============================== PHASE 1 ============================== -->
+
+<div class="phase">
+  <div class="phase-bar context">
+    <div class="phase-num">Phase 1</div>
+    <div class="phase-title">Context Brief + Project Setup</div>
+    <div class="phase-time">25 min</div>
+  </div>
+  <div class="phase-desc">Fill out the Context Brief form, paste it into your AI tool, then set up a project with a system prompt.</div>
+</div>
+
+<!-- Step 1.1 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge context">Step 1</div>
+    <div class="step-title">Fill Out the Context Brief</div>
+  </div>
+  <div class="annotations">
+    <p>Open <a href="https://chlodomer.github.io/ai-research-masterclass/" target="_blank"><strong>chlodomer.github.io/ai-research-masterclass</strong></a> and fill out the form. When done, click <strong>Generate Context Brief</strong> and then <strong>Copy to Clipboard</strong>.</p>
+    <p style="margin-top:8px;">Open a new conversation in your AI tool (ChatGPT, Gemini, Claude, or any other). Paste the context brief and send it.</p>
+  </div>
+</div>
+
+<!-- Step 1.2 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge context">Step 2</div>
+    <div class="step-title">Create a Project</div>
+  </div>
+  <div class="annotations">
+    <p><strong>ChatGPT:</strong> Sidebar &rarr; Projects &rarr; New Project &rarr; name it after your research topic.<br>
+    <strong>Claude:</strong> Sidebar &rarr; Projects &rarr; Create Project.<br>
+    <strong>Gemini:</strong> Sidebar &rarr; Notebooks &rarr; New Notebook.</p>
+    <p style="margin-top:8px;">Move the conversation you just had into the project.</p>
+  </div>
+</div>
+
+<!-- Step 1.3: System Prompt -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge context">Step 3</div>
+    <div class="step-title">Generate a System Prompt</div>
+  </div>
+  <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><span class="hl-context">Based on everything I've told you about my research,</span> <span class="hl-proposal">write a system prompt for this project.</span>
+
+<span class="hl-structure">The prompt should ensure that any new conversation in this project starts with full knowledge of my research area, my terminology, my aims, and my constraints.</span>
+
+<span class="hl-constraint">It should be concise but complete. Do not include pleasantries or generic instructions.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color context"></div>
+      <div class="anno-text"><strong>"Based on everything I've told you"</strong> tells the AI to draw on the context brief you already provided, not to guess.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color proposal"></div>
+      <div class="anno-text"><strong>"Write a system prompt"</strong> is a meta-task: you're asking the AI to write instructions for itself. It knows how to do this well.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color structure"></div>
+      <div class="anno-text"><strong>"Terminology, aims, constraints"</strong> tells the AI exactly what categories to include. Without this, it will produce something generic.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>"Concise but complete"</strong> prevents a bloated prompt. <strong>"No pleasantries"</strong> cuts the filler.</div>
+    </div>
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-label">What to Do with the Output</div>
+  Copy the system prompt the AI generates. Go to your project settings and paste it into the <strong>Instructions</strong> field. Now every new conversation in this project inherits your research context automatically. Test it: open a new chat in the project and ask <strong>"What do you know about my research?"</strong>
+</div>
+
+<!-- ============================== PHASE 2 ============================== -->
+
+<div class="phase">
+  <div class="phase-bar biblio">
+    <div class="phase-num">Phase 2</div>
+    <div class="phase-title">Bibliography Discovery</div>
+    <div class="phase-time">35 min</div>
+  </div>
+  <div class="phase-desc">Find relevant literature using your primed AI session. Three levels: basic, intermediate, advanced.</div>
+</div>
+
+<!-- Step 2.1: Basic -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge biblio">Level 1 &mdash; Basic</div>
+    <div class="step-title">Quick Literature Search</div>
+  </div>
+  <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><span class="hl-context">Based on my research question and aims,</span> <span class="hl-biblio">suggest 10 recent papers</span> that are directly relevant to my project.
+
+<span class="hl-structure">For each paper, provide:
+- Full citation (authors, year, title, journal)
+- One sentence on its main contribution
+- One sentence on how it connects to my specific aims</span>
+
+<span class="hl-constraint">Prioritize empirical work over reviews. Do not suggest papers outside the boundaries I defined in my context brief.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color context"></div>
+      <div class="anno-text"><strong>"Based on my research question and aims"</strong> anchors the search to your project, not to the general topic. This is why the context brief matters.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color biblio"></div>
+      <div class="anno-text"><strong>"10 recent papers"</strong> gives a concrete, evaluable target. You can judge whether the results are good.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color structure"></div>
+      <div class="anno-text"><strong>"For each paper, provide..."</strong> specifies the output format. Without this, you get a wall of text. With it, you get a table you can scan.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>"Do not suggest papers outside the boundaries"</strong> activates the "do not search for" constraints from your context brief. This is where those exclusions pay off.</div>
+    </div>
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-label">Verification Checkpoint</div>
+  For every paper the AI suggests: <strong>click the DOI or search the title</strong>. Confirm it exists, the title matches, and the abstract aligns with what the AI claims. AI can still fabricate citations. Never cite a source you haven't personally confirmed.
+</div>
+
+<!-- Step 2.2: Intermediate -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge biblio">Level 2 &mdash; Intermediate</div>
+    <div class="step-title">Deep Research</div>
+  </div>
+  <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><span class="hl-biblio">Conduct a comprehensive literature review</span> <span class="hl-context">for my research project.</span>
+
+<span class="hl-structure">Organize findings by theme, not chronologically. Cover:
+1. Foundational work establishing the problem
+2. Current methodological approaches
+3. Key gaps in the literature
+4. Recent innovations (2023-2026)</span>
+
+<span class="hl-biblio">For each paper, provide the full citation and DOI where available.</span>
+
+<span class="hl-constraint">Stay within the research boundaries I defined. Flag any papers you are uncertain about.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color biblio"></div>
+      <div class="anno-text"><strong>"Comprehensive literature review"</strong> triggers deep research mode in ChatGPT (and similar features in other tools). This runs for 10-20 minutes and searches widely.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color structure"></div>
+      <div class="anno-text"><strong>"Organize by theme"</strong> produces output that maps onto a Background section. <strong>Four categories</strong> give the AI a framework so it doesn't dump everything in one pile.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>"Flag any papers you are uncertain about"</strong> gives the AI permission to be honest. Without this, it will present everything with equal confidence.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 2.3: Advanced -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge biblio">Level 3 &mdash; Advanced</div>
+    <div class="step-title">Upload Papers as Context</div>
+  </div>
+  <div class="annotations">
+    <p>Download 2-3 PDFs of papers you found and verified. Upload them to your conversation (drag and drop or use the attachment button).</p>
+    <p style="margin-top:8px;">Once uploaded, the AI can read the actual content, not just the abstract. This transforms the quality of everything that follows.</p>
+  </div>
+  <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>I've uploaded <span class="hl-biblio">3 papers</span> that are central to my project.
+
+<span class="hl-build">Read them and tell me:
+1. What is the consensus across these papers?
+2. Where do they disagree?
+3. What gap do they collectively leave open that my project addresses?</span>
+
+<span class="hl-structure">Be specific. Cite by author name when referencing a claim.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color biblio"></div>
+      <div class="anno-text"><strong>"3 papers that are central"</strong> tells the AI these aren't random; they matter. It will read them carefully rather than skimming.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color build"></div>
+      <div class="anno-text"><strong>Three specific questions</strong> force synthesis, not summary. You're asking the AI to do the intellectual work of identifying consensus, disagreement, and gaps.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color structure"></div>
+      <div class="anno-text"><strong>"Cite by author name"</strong> makes the output verifiable. You can check whether the AI is attributing claims correctly.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="break-card">Break &bull; 10 minutes</div>
+
+<!-- ============================== PHASE 3 ============================== -->
+
+<div class="phase">
+  <div class="phase-bar build">
+    <div class="phase-num">Phase 3</div>
+    <div class="phase-title">Context Building</div>
+    <div class="phase-time">30 min</div>
+  </div>
+  <div class="phase-desc">Use your accumulated context (brief + papers) to build the intellectual foundation for a proposal.</div>
+</div>
+
+<!-- Step 3.1 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge build">Step 1</div>
+    <div class="step-title">State of the Field</div>
+  </div>
+  <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><span class="hl-context">Using my research context</span> <span class="hl-biblio">and the papers I've uploaded,</span>
+
+<span class="hl-build">draft a "Background and Significance" section</span> for a grant proposal.
+
+<span class="hl-structure">Structure it as:
+1. The problem and why it matters (2-3 paragraphs)
+2. What the field has established so far (2-3 paragraphs)
+3. The critical gap my project addresses (1 paragraph)
+4. Why my approach is the right one to fill this gap (1 paragraph)</span>
+
+<span class="hl-constraint">Use only information from the papers I provided and my context brief. Do not introduce claims I cannot support. Academic register, not promotional.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color context"></div>
+      <div class="anno-text"><strong>"Using my research context"</strong> keeps the AI grounded in your specific framing, not a generic version of your topic.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color build"></div>
+      <div class="anno-text"><strong>"Background and Significance"</strong> is the actual section name in an ISF proposal. The AI knows this format.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color structure"></div>
+      <div class="anno-text"><strong>Four numbered sub-sections</strong> give the AI a skeleton. Without structure, you get a meandering essay. With it, you get a draft that maps onto what reviewers expect.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>"Only information from the papers I provided"</strong> prevents hallucinated citations. <strong>"Not promotional"</strong> prevents hype. These are the guardrails that make the output trustworthy.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 3.2: Iteration -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge build">Step 2</div>
+    <div class="step-title">Iterate and Refine</div>
+  </div>
+  <div class="annotations">
+    <p>Read the draft. Something will be wrong, overstated, or missing. That's the point. Now you iterate:</p>
+  </div>
+  <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><span class="hl-constraint">The connection between [X] and [Y] is overstated. Soften the causal language.</span>
+
+<span class="hl-build">Add a paragraph on [Z], which is missing from the current draft.</span>
+
+<span class="hl-context">Remember that my approach is [specific detail from your context brief]. Make sure this comes through more clearly in the gap analysis.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>Specific corrections</strong> teach the AI your standards. Vague feedback ("make it better") produces vague revisions. Pointed feedback produces precise improvements.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color context"></div>
+      <div class="anno-text"><strong>"Remember that my approach is..."</strong> pulls the AI back to your context brief when it drifts. This is the most common use of iteration: course correction.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================== PHASE 4 ============================== -->
+
+<div class="phase">
+  <div class="phase-bar proposal">
+    <div class="phase-num">Phase 4</div>
+    <div class="phase-title">Proposal Generation</div>
+    <div class="phase-time">30 min</div>
+  </div>
+  <div class="phase-desc">Generate an ISF-structured proposal section using everything you've built.</div>
+</div>
+
+<!-- Step 4.1 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge proposal">Step 1</div>
+    <div class="step-title">Research Plan</div>
+  </div>
+  <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><span class="hl-context">Using my context brief, the literature we reviewed, and the background section we just drafted,</span>
+
+<span class="hl-proposal">draft the "Research Plan" section of an ISF grant proposal</span> covering my <span class="hl-context">specific aims.</span>
+
+<span class="hl-structure">For each aim, include:
+- Rationale (why this aim is necessary)
+- Methodology (how you will do it)
+- Expected results (what success looks like)
+- Potential pitfalls and alternatives</span>
+
+<span class="hl-constraint">This is a proof-of-concept study. Do not overclaim. Acknowledge limitations honestly. Use the terminology from my context brief consistently.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color context"></div>
+      <div class="anno-text"><strong>"Using my context brief, the literature, and the background"</strong> chains together everything accumulated in the session. Each phase builds on the last.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color proposal"></div>
+      <div class="anno-text"><strong>"Research Plan section of an ISF grant proposal"</strong> tells the AI the exact format. It will match ISF conventions rather than producing a generic plan.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color structure"></div>
+      <div class="anno-text"><strong>Four sub-sections per aim</strong> is what reviewers expect to see. The AI knows this structure but won't use it unless you ask.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>"Acknowledge limitations honestly"</strong> prevents the AI from writing an overconfident plan. Reviewers trust proposals that show awareness of what could go wrong.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 4.2: Reviewer simulation -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge proposal">Step 2</div>
+    <div class="step-title">Reviewer Simulation</div>
+  </div>
+  <div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><span class="hl-proposal">Act as a critical ISF grant reviewer</span> in my field.
+
+<span class="hl-build">Read the research plan I just generated and identify:
+1. The three weakest points a reviewer would attack
+2. Any logical gaps between aims
+3. Claims that are not adequately supported by the literature cited</span>
+
+<span class="hl-constraint">Be harsh but constructive. I would rather fix problems now than discover them in review.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color proposal"></div>
+      <div class="anno-text"><strong>"Act as a critical ISF reviewer"</strong> puts the AI in adversarial mode. It will look for problems instead of validating your work.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>"Be harsh but constructive"</strong> gives the AI permission to be honest. By default, AI tools are sycophantic. This prompt counteracts that tendency.</div>
+    </div>
+  </div>
+</div>
+
+<!-- INFO BOX -->
+<div class="info-box">
+  <div class="info-label">What You Leave With</div>
+  <strong>A primed AI project</strong> with your research context, a system prompt, bibliography, a background draft, and a research plan draft. This is a working foundation you can continue developing at home. Every new conversation in the project picks up where you left off.
+</div>
+
+<hr class="divider">
+
+<!-- QUICK REFERENCE -->
+<div style="background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px;">
+  <h3 style="font-size: 18px; font-weight: 600; color: var(--green); margin-bottom: 14px;">Quick Reference: The Principles</h3>
+  <div style="display: grid; gap: 12px;">
+    <div style="display: flex; gap: 10px; align-items: flex-start;">
+      <div class="anno-color context" style="margin-top: 4px;"></div>
+      <div><strong>Context first.</strong> The AI is only as good as the context you give it. Generic input produces generic output.</div>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: flex-start;">
+      <div class="anno-color structure" style="margin-top: 4px;"></div>
+      <div><strong>Structure your requests.</strong> Tell the AI what format you want. Numbered lists, specific categories, word limits. Unstructured prompts produce unstructured output.</div>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: flex-start;">
+      <div class="anno-color constraint" style="margin-top: 4px;"></div>
+      <div><strong>Set constraints.</strong> Tell the AI what NOT to do. Without guardrails, it will overclaim, hallucinate, and produce text that sounds confident but misrepresents your position.</div>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: flex-start;">
+      <div class="anno-color build" style="margin-top: 4px;"></div>
+      <div><strong>Build iteratively.</strong> Each phase feeds the next. Don't start from scratch each time. Let context accumulate.</div>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: flex-start;">
+      <div class="anno-color constraint" style="margin-top: 4px;"></div>
+      <div><strong>Verify everything.</strong> AI tools fabricate citations, overstate claims, and present uncertainty as fact. Your domain expertise is the quality filter.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  AI for Research Master Class &bull; Prof. Yaniv Fox &bull; Bar-Ilan University &bull; April 2026<br>
+  <a href="https://chlodomer.github.io/ai-research-masterclass/">Context Brief Form</a> &bull;
+  <a href="https://github.com/Chlodomer/ai-research-masterclass">GitHub</a>
+</footer>
+
+</div>
+
+<script>
+function copyPrompt(btn) {
+  const block = btn.parentElement;
+  const text = block.textContent.replace('Copy', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
