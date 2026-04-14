@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Context Brief — AI for Research Workshop</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+
+  :root {
+    --bg: #fafaf9;
+    --card: #ffffff;
+    --border: #e5e5e3;
+    --text: #1a1a1a;
+    --muted: #71717a;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+    --accent-border: #bfdbfe;
+    --green: #16a34a;
+    --green-light: #f0fdf4;
+    --green-border: #bbf7d0;
+    --amber: #d97706;
+    --amber-light: #fffbeb;
+    --amber-border: #fde68a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+    padding: 24px 16px 80px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-top: 20px;
+  }
+  header .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    border-radius: 100px;
+    padding: 4px 14px;
+    margin-bottom: 16px;
+  }
+  header h1 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 32px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  header p {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .section-num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .section-header h2 {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .section-header .why {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .hint {
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    margin-top: 16px;
+  }
+  label:first-of-type {
+    margin-top: 0;
+  }
+  label .optional {
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  textarea, input[type="text"] {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  textarea:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+  }
+  textarea { min-height: 80px; }
+  textarea.short { min-height: 56px; }
+  textarea.tall { min-height: 120px; }
+
+  .term-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .term-row input:first-child { flex: 0 0 35%; }
+  .term-row input:last-child { flex: 1; }
+
+  .add-term {
+    background: none;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 8px;
+    width: 100%;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    margin-top: 4px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .add-term:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .scholar-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .scholar-row input:first-child { flex: 0 0 40%; }
+  .scholar-row input:last-child { flex: 1; }
+
+  /* Output section */
+  .output-section {
+    background: var(--green-light);
+    border: 1px solid var(--green-border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 20px;
+    display: none;
+  }
+  .output-section.visible { display: block; }
+  .output-section h2 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .output-section p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  #outputText {
+    width: 100%;
+    min-height: 300px;
+    border: 1px solid var(--green-border);
+    border-radius: 8px;
+    padding: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+    background: white;
+    resize: vertical;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    width: 100%;
+    justify-content: center;
+  }
+  .btn-primary:hover { background: #1d4ed8; }
+
+  .btn-copy {
+    background: var(--green);
+    color: white;
+    margin-top: 12px;
+  }
+  .btn-copy:hover { background: #15803d; }
+  .btn-copy.copied {
+    background: #166534;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .btn-row .btn { flex: 1; justify-content: center; }
+
+  .module-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .tag-m1 { background: #dbeafe; color: #1e40af; }
+  .tag-m2 { background: #fef3c7; color: #92400e; }
+  .tag-m3 { background: #d1fae5; color: #065f46; }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+  <div class="badge">Workshop Tool</div>
+  <h1>Context Brief</h1>
+  <p>Translate what you already know about your research into structured context that makes AI genuinely useful. Each section maps to a workshop module.</p>
+</header>
+
+<!-- SECTION 1 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div>
+      <h2>Your Research in Plain Language <span class="module-tag tag-m1">All Modules</span></h2>
+      <div class="why">The AI needs a clear, jargon-free summary to anchor everything else.</div>
+    </div>
+  </div>
+
+  <label>What is your research about? <span class="optional">(2-3 sentences, as if explaining to a sharp colleague from another discipline)</span></label>
+  <textarea id="f_about" placeholder="e.g., I study how soil microbiome composition changes under drought conditions, specifically whether certain bacterial communities can be engineered to improve crop resilience..."></textarea>
+
+  <label>What is the open question or problem you're working on?</label>
+  <textarea id="f_question" class="short" placeholder="The specific gap or puzzle your research addresses"></textarea>
+
+  <label>What makes your approach different from existing work?</label>
+  <textarea id="f_novel" class="short" placeholder="Your angle, method, or framing that distinguishes this from what others have done"></textarea>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div>
+      <h2>Key Terms <span class="module-tag tag-m1">Bibliography</span> <span class="module-tag tag-m2">Context</span></h2>
+      <div class="why">Every field has terms the AI will misuse. Define them now so the output isn't wrong later.</div>
+    </div>
+  </div>
+
+  <div class="hint">These aren't textbook definitions. Write what YOU mean when you use the term in your research.</div>
+
+  <div id="termRows">
+    <div class="term-row">
+      <input type="text" placeholder="Term">
+      <input type="text" placeholder="What you mean by it">
+    </div>
+    <div class="term-row">
+      <input type="text" placeholder="Term">
+      <input type="text" placeholder="What you mean by it">
+    </div>
+    <div class="term-row">
+      <input type="text" placeholder="Term">
+      <input type="text" placeholder="What you mean by it">
+    </div>
+    <div class="term-row">
+      <input type="text" placeholder="Term">
+      <input type="text" placeholder="What you mean by it">
+    </div>
+    <div class="term-row">
+      <input type="text" placeholder="Term">
+      <input type="text" placeholder="What you mean by it">
+    </div>
+  </div>
+  <button class="add-term" onclick="addTermRow()">+ Add another term</button>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div>
+      <h2>Your Research Landscape <span class="module-tag tag-m1">Bibliography</span></h2>
+      <div class="why">Telling the AI who matters in your field makes literature search dramatically better.</div>
+    </div>
+  </div>
+
+  <label>Key scholars in your area <span class="optional">(name + what they're known for)</span></label>
+  <div id="scholarRows">
+    <div class="scholar-row">
+      <input type="text" placeholder="Scholar name">
+      <input type="text" placeholder="Known for...">
+    </div>
+    <div class="scholar-row">
+      <input type="text" placeholder="Scholar name">
+      <input type="text" placeholder="Known for...">
+    </div>
+    <div class="scholar-row">
+      <input type="text" placeholder="Scholar name">
+      <input type="text" placeholder="Known for...">
+    </div>
+  </div>
+  <button class="add-term" onclick="addScholarRow()">+ Add another scholar</button>
+
+  <label>A foundational text or recent review the AI should know about <span class="optional">(optional)</span></label>
+  <input type="text" id="f_keytext" placeholder="e.g., Smith & Jones (2024), Annual Review of...">
+
+  <label>What should the AI NOT look for? <span class="optional">(Adjacent fields that sound relevant but aren't, outdated frameworks)</span></label>
+  <textarea id="f_notlook" class="short" placeholder="e.g., Don't confuse this with clinical microbiology; I'm working on environmental, not medical, applications"></textarea>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div>
+      <h2>Proposal Seed <span class="module-tag tag-m3">Proposal</span></h2>
+      <div class="why">This feeds the proposal generation module. The better the seed, the less you fix later.</div>
+    </div>
+  </div>
+
+  <label>30-second elevator pitch to a funder</label>
+  <textarea id="f_pitch" placeholder="If you had half a minute to explain why this deserves funding, what would you say?"></textarea>
+
+  <label>Specific aims or objectives <span class="optional">(start with a verb: characterize, determine, test, develop...)</span></label>
+  <textarea id="f_aim1" class="short" placeholder="Aim 1: To..."></textarea>
+  <textarea id="f_aim2" class="short" placeholder="Aim 2: To..." style="margin-top:8px"></textarea>
+  <textarea id="f_aim3" class="short" placeholder="Aim 3 (optional): To..." style="margin-top:8px"></textarea>
+
+  <label>Strongest evidence this project is feasible <span class="optional">(pilot data, prior work, collaborators, infrastructure)</span></label>
+  <textarea id="f_feasibility" class="short" placeholder="What makes a reviewer believe you can actually do this?"></textarea>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div>
+      <h2>Constraints and Red Lines <span class="module-tag tag-m2">Context</span> <span class="module-tag tag-m3">Proposal</span></h2>
+      <div class="why">AI tools overclaim by default. Set your guardrails now.</div>
+    </div>
+  </div>
+
+  <label>What should the AI NOT claim on your behalf?</label>
+  <textarea id="f_noclaim" class="short" placeholder="e.g., Don't imply causation when I only have correlational data; don't claim clinical applicability"></textarea>
+
+  <label>Sensitivities or constraints <span class="optional">(ethical, political, disciplinary)</span></label>
+  <textarea id="f_sensitive" class="short" placeholder="Anything the AI should tread carefully around"></textarea>
+</div>
+
+<!-- GENERATE -->
+<button class="btn btn-primary" onclick="generate()">Generate Context Brief</button>
+
+<!-- OUTPUT -->
+<div class="output-section" id="outputSection">
+  <h2>Your Context Brief</h2>
+  <p>Copy this text and paste it into your AI tool (ChatGPT, Gemini, Claude, or any other) as the opening message of a new conversation. It gives the AI everything it needs to help you effectively.</p>
+  <textarea id="outputText" readonly></textarea>
+  <div class="btn-row">
+    <button class="btn btn-copy" onclick="copyOutput()">Copy to Clipboard</button>
+  </div>
+</div>
+
+<footer>
+  AI for Research — Master Class, Bar-Ilan University, April 2026<br>
+  <a href="https://github.com/Chlodomer/ai-research-masterclass">Workshop Materials</a>
+</footer>
+
+</div>
+
+<script>
+function addTermRow() {
+  const row = document.createElement('div');
+  row.className = 'term-row';
+  row.innerHTML = '<input type="text" placeholder="Term"><input type="text" placeholder="What you mean by it">';
+  document.getElementById('termRows').appendChild(row);
+}
+
+function addScholarRow() {
+  const row = document.createElement('div');
+  row.className = 'scholar-row';
+  row.innerHTML = '<input type="text" placeholder="Scholar name"><input type="text" placeholder="Known for...">';
+  document.getElementById('scholarRows').appendChild(row);
+}
+
+function getVal(id) { return document.getElementById(id).value.trim(); }
+
+function getTerms() {
+  const rows = document.querySelectorAll('#termRows .term-row');
+  const terms = [];
+  rows.forEach(r => {
+    const inputs = r.querySelectorAll('input');
+    if (inputs[0].value.trim() && inputs[1].value.trim()) {
+      terms.push({ term: inputs[0].value.trim(), def: inputs[1].value.trim() });
+    }
+  });
+  return terms;
+}
+
+function getScholars() {
+  const rows = document.querySelectorAll('#scholarRows .scholar-row');
+  const scholars = [];
+  rows.forEach(r => {
+    const inputs = r.querySelectorAll('input');
+    if (inputs[0].value.trim()) {
+      scholars.push({ name: inputs[0].value.trim(), known: inputs[1].value.trim() });
+    }
+  });
+  return scholars;
+}
+
+function generate() {
+  let out = "# Context Brief: My Research\n\n";
+  out += "I am a researcher preparing a grant proposal. Below is structured context about my research. Please use this information to assist me accurately throughout our conversation. Do not make claims beyond what I've stated, and respect the constraints listed at the end.\n\n";
+
+  out += "## Research Overview\n\n";
+  if (getVal('f_about')) out += getVal('f_about') + "\n\n";
+  if (getVal('f_question')) out += "**Open question:** " + getVal('f_question') + "\n\n";
+  if (getVal('f_novel')) out += "**What makes my approach different:** " + getVal('f_novel') + "\n\n";
+
+  const terms = getTerms();
+  if (terms.length > 0) {
+    out += "## Key Terms (use these definitions, not general ones)\n\n";
+    terms.forEach(t => { out += "- **" + t.term + "**: " + t.def + "\n"; });
+    out += "\n";
+  }
+
+  const scholars = getScholars();
+  if (scholars.length > 0 || getVal('f_keytext') || getVal('f_notlook')) {
+    out += "## Research Landscape\n\n";
+    if (scholars.length > 0) {
+      out += "**Key scholars:**\n";
+      scholars.forEach(s => { out += "- " + s.name + (s.known ? " (" + s.known + ")" : "") + "\n"; });
+      out += "\n";
+    }
+    if (getVal('f_keytext')) out += "**Key reference:** " + getVal('f_keytext') + "\n\n";
+    if (getVal('f_notlook')) out += "**Do NOT search for:** " + getVal('f_notlook') + "\n\n";
+  }
+
+  if (getVal('f_pitch') || getVal('f_aim1') || getVal('f_feasibility')) {
+    out += "## Proposal Seed\n\n";
+    if (getVal('f_pitch')) out += "**Elevator pitch:** " + getVal('f_pitch') + "\n\n";
+    if (getVal('f_aim1')) out += "**Aim 1:** " + getVal('f_aim1') + "\n";
+    if (getVal('f_aim2')) out += "**Aim 2:** " + getVal('f_aim2') + "\n";
+    if (getVal('f_aim3')) out += "**Aim 3:** " + getVal('f_aim3') + "\n";
+    if (getVal('f_aim1')) out += "\n";
+    if (getVal('f_feasibility')) out += "**Feasibility evidence:** " + getVal('f_feasibility') + "\n\n";
+  }
+
+  if (getVal('f_noclaim') || getVal('f_sensitive')) {
+    out += "## Constraints\n\n";
+    if (getVal('f_noclaim')) out += "**Do NOT claim:** " + getVal('f_noclaim') + "\n\n";
+    if (getVal('f_sensitive')) out += "**Sensitivities:** " + getVal('f_sensitive') + "\n\n";
+  }
+
+  document.getElementById('outputText').value = out;
+  document.getElementById('outputSection').classList.add('visible');
+  document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyOutput() {
+  const text = document.getElementById('outputText').value;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.btn-copy');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy to Clipboard';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
