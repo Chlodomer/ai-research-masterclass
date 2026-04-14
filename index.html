@@ -8,17 +8,20 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --bg: #fafaf9;
+    --bg: #f5faf0;
     --card: #ffffff;
-    --border: #e5e5e3;
+    --border: #d4e4c8;
     --text: #1a1a1a;
-    --muted: #71717a;
-    --accent: #2563eb;
-    --accent-light: #eff6ff;
-    --accent-border: #bfdbfe;
-    --green: #16a34a;
-    --green-light: #f0fdf4;
-    --green-border: #bbf7d0;
+    --muted: #4a6040;
+    --accent: #004128;
+    --accent-light: #e8f4e0;
+    --accent-border: #b8d4a8;
+    --highlight: #78CDE6;
+    --highlight-light: #eef8fc;
+    --highlight-border: #b0dff0;
+    --green: #006937;
+    --green-light: #edf7e8;
+    --green-border: #b8d4a8;
     --amber: #d97706;
     --amber-light: #fffbeb;
     --amber-border: #fde68a;
@@ -40,10 +43,57 @@
     margin: 0 auto;
   }
 
+  .biu-header {
+    background: linear-gradient(135deg, #004128, #00280F);
+    color: white;
+    padding: 20px 28px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .biu-header img {
+    height: 48px;
+    opacity: 0.9;
+  }
+  .biu-header .header-text {
+    text-align: right;
+  }
+  .biu-header .header-text .prog {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .biu-header .header-text .dept {
+    font-size: 13px;
+    opacity: 0.85;
+  }
+
+  .title-bar {
+    background: #e8f4e0;
+    border-bottom: 3px solid var(--highlight);
+    border-radius: 0 0 12px 12px;
+    padding: 20px 28px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .title-bar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--accent);
+  }
+
   header {
     text-align: center;
-    margin-bottom: 40px;
-    padding-top: 20px;
+    margin-bottom: 12px;
+    padding-top: 0;
   }
   header .badge {
     display: inline-block;
@@ -65,6 +115,7 @@
     font-style: italic;
     line-height: 1.2;
     margin-bottom: 8px;
+    color: var(--accent);
   }
   header p {
     font-size: 14px;
@@ -92,7 +143,7 @@
     width: 28px;
     height: 28px;
     border-radius: 8px;
-    background: var(--accent);
+    background: #004128;
     color: white;
     font-size: 13px;
     font-weight: 700;
@@ -112,12 +163,12 @@
   }
 
   .hint {
-    background: var(--accent-light);
-    border: 1px solid var(--accent-border);
+    background: var(--highlight-light);
+    border: 1px solid var(--highlight-border);
     border-radius: 8px;
     padding: 10px 14px;
     font-size: 13px;
-    color: var(--accent);
+    color: #1a6070;
     margin-bottom: 16px;
     line-height: 1.5;
   }
@@ -243,12 +294,12 @@
     border: none;
   }
   .btn-primary {
-    background: var(--accent);
+    background: linear-gradient(135deg, #004128, #006937);
     color: white;
     width: 100%;
     justify-content: center;
   }
-  .btn-primary:hover { background: #1d4ed8; }
+  .btn-primary:hover { background: #003020; }
 
   .btn-copy {
     background: var(--green);
@@ -278,9 +329,9 @@
     margin-left: 8px;
     vertical-align: middle;
   }
-  .tag-m1 { background: #dbeafe; color: #1e40af; }
+  .tag-m1 { background: #eef8fc; color: #0e5f7a; }
   .tag-m2 { background: #fef3c7; color: #92400e; }
-  .tag-m3 { background: #d1fae5; color: #065f46; }
+  .tag-m3 { background: #e8f4e0; color: #004128; }
 
   footer {
     text-align: center;
@@ -295,11 +346,21 @@
 
 <div class="container">
 
-<header>
-  <div class="badge">Workshop Tool</div>
-  <h1>Context Brief</h1>
-  <p>Translate what you already know about your research into structured context that makes AI genuinely useful. Each section maps to a workshop module.</p>
-</header>
+<div class="biu-header">
+  <img src="biu-logo.png" alt="Bar-Ilan University">
+  <div class="header-text">
+    <div class="prog">AI Initiatives</div>
+    <div class="dept">Master Class: AI for Research</div>
+  </div>
+</div>
+
+<div class="title-bar">
+  <header>
+    <div class="badge">Workshop Tool</div>
+    <h1>Context Brief</h1>
+    <p>Translate what you already know about your research into structured context that makes AI genuinely useful. Each section maps to a workshop module.</p>
+  </header>
+</div>
 
 <!-- SECTION 1 -->
 <div class="section">
@@ -445,8 +506,8 @@
 </div>
 
 <footer>
-  AI for Research — Master Class, Bar-Ilan University, April 2026<br>
-  <a href="https://github.com/Chlodomer/ai-research-masterclass">Workshop Materials</a>
+  AI for Research Master Class &bull; Prof. Yaniv Fox &bull; Bar-Ilan University &bull; April 2026<br>
+  <a href="https://github.com/Chlodomer/ai-research-masterclass">Workshop Materials on GitHub</a>
 </footer>
 
 </div>
