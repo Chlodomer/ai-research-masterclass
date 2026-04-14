@@ -661,6 +661,38 @@ function copyOutput() {
     }, 2000);
   });
 }
+// Auto-fill demo data
+window.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('f_about').value = "I study the role of gut microbiome composition in modulating immune responses to respiratory viral infections. Specifically, I'm interested in whether pre-existing microbiome diversity predicts severity of outcomes in influenza and SARS-like infections, and whether targeted probiotic interventions can shift that trajectory.";
+  document.getElementById('f_question').value = "Can a defined consortium of commensal gut bacteria, administered prophylactically, reduce the severity of respiratory viral infections by modulating systemic immune priming?";
+  document.getElementById('f_novel').value = "Most microbiome-immunity work is observational or uses germ-free mouse models. I'm proposing a defined-consortium approach (5-7 species, not a fecal transplant) combined with a controlled human challenge model, which lets us measure causal effects in humans rather than inferring them from correlations.";
+  var termRows = document.querySelectorAll('#termRows .term-row');
+  var terms = [
+    ["Defined consortium", "A specific, reproducible mix of 5-7 bacterial species, not a whole-community transplant. Each species is selected for a known immunomodulatory function."],
+    ["Systemic immune priming", "The state of baseline immune readiness in mucosal and peripheral compartments, shaped by gut colonization patterns. Not the same as 'innate immunity' broadly."],
+    ["Controlled human challenge", "Deliberate infection of consenting volunteers with attenuated virus under clinical supervision. Gold standard for causal inference but ethically constrained."],
+    ["Colonization resistance", "The ability of an established microbiome to prevent engraftment of new species. Relevant because our consortium must actually take hold to work."],
+    ["Mucosal crosstalk", "Signaling between gut-associated lymphoid tissue and respiratory mucosal surfaces via circulating immune cells and cytokines. The mechanism by which gut bacteria could influence lung immunity."]
+  ];
+  terms.forEach(function(t, i) { if (termRows[i]) { termRows[i].querySelectorAll('input')[0].value = t[0]; termRows[i].querySelectorAll('input')[1].value = t[1]; } });
+  var scholarRows = document.querySelectorAll('#scholarRows .scholar-row');
+  var scholars = [
+    ["Yasmine Belkaid", "Gut-lung axis immunity, commensal regulation of antiviral defense (NIH/NIAID)"],
+    ["Kenya Honda", "Defined bacterial consortia that induce specific T-cell responses (Keio University)"],
+    ["Andreas Wack", "Innate immune responses to influenza, role of microbiota in lung defense (Crick Institute)"]
+  ];
+  scholars.forEach(function(s, i) { if (scholarRows[i]) { scholarRows[i].querySelectorAll('input')[0].value = s[0]; scholarRows[i].querySelectorAll('input')[1].value = s[1]; } });
+  document.getElementById('f_keytext').value = "Segal et al. (2024), 'Microbiome-immune crosstalk in respiratory infection,' Nature Reviews Immunology.";
+  document.getElementById('f_notlook').value = "Don't confuse with probiotic supplement industry literature (Lactobacillus yogurt studies). Also not relevant: microbiome and mental health, gut-brain axis work, or C. diff transplant literature.";
+  document.getElementById('f_pitch').value = "Respiratory infections kill millions annually, and we still treat them after the fact. The gut microbiome shapes systemic immunity before any virus arrives. We propose to test whether a defined bacterial consortium, given prophylactically, can prime the immune system to respond faster and more effectively to respiratory viral challenge. This is preventive medicine at the microbial level.";
+  document.getElementById('f_aim1').value = "To characterize the systemic immune signatures (circulating cytokines, T-cell activation markers) induced by a 5-species bacterial consortium in healthy volunteers over 28 days of oral administration.";
+  document.getElementById('f_aim2').value = "To determine whether consortium-primed volunteers show reduced viral load and symptom severity following controlled challenge with attenuated influenza A (H1N1), compared to placebo controls.";
+  document.getElementById('f_aim3').value = "To identify the specific microbial metabolites (short-chain fatty acids, tryptophan catabolites) that mediate the gut-lung immune priming effect, using paired stool and serum metabolomics.";
+  document.getElementById('f_feasibility').value = "Pilot data from our lab (n=12) shows the consortium colonizes successfully in 83% of recipients within 14 days. We have an established controlled human challenge facility (Sheba Medical Center collaboration) and IRB pre-approval for the attenuated H1N1 model.";
+  document.getElementById('f_noclaim').value = "Do not claim therapeutic efficacy or clinical applicability. This is a proof-of-concept mechanistic study. Do not use the word 'cure' or imply we are developing a commercial probiotic product.";
+  document.getElementById('f_sensitive').value = "Controlled human challenge studies are ethically sensitive. Frame carefully: volunteers are fully informed, virus is attenuated, medical monitoring is continuous. Do not downplay the ethical complexity.";
+  setTimeout(generate, 300);
+});
 </script>
 
 </body>
