@@ -95,6 +95,42 @@
   }
   .title-bar .sub { font-size: 15px; color: var(--muted); }
 
+  /* Download button */
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--green), #007a4a);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0,73,61,0.2);
+  }
+  .download-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,73,61,0.3);
+  }
+  .download-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+  .download-wrap {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .download-wrap .download-caption {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
   /* Intro */
   .intro {
     background: var(--blue-bg);
@@ -310,6 +346,15 @@
 <div class="intro">
   <div class="intro-label">How to Use This Page</div>
   This is a cheat sheet, not a replacement for the official ISF guidelines. Each card below covers one section of the proposal: what goes in it, the page or word limit, and what reviewers actually look for. Keep the full guidelines open alongside this page when writing. The proposal is submitted in English via the ISF online system.
+</div>
+
+<!-- DOWNLOAD BUTTON -->
+<div class="download-wrap">
+  <a class="download-btn" href="isf-proposal-guidelines.md" download>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download Proposal Guidelines
+  </a>
+  <div class="download-caption">Markdown file. Upload to your AI project so it knows the ISF format.</div>
 </div>
 
 <!-- KEY DATES -->
