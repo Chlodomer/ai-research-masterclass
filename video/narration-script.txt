@@ -1,0 +1,21 @@
+AI for Research. A hands-on faculty workshop.
+
+You already know your research. The challenge is making AI useful for it.
+
+Today, we build a complete workflow: from your research idea to a grant proposal draft, in four phases.
+
+Phase one. The Context Brief. You fill out a short form that translates your expertise into structured context the AI can work with. Your terms, your scholars, your boundaries. Then you paste it into your AI tool, and it instantly understands your project. No back and forth. No explaining from scratch.
+
+You then create a project, and generate a system prompt, so every new conversation inherits your context automatically.
+
+Phase two. Bibliography. You ask the AI to find relevant literature, starting simple and building to deep research. But here is the critical part: verification. AI tools still fabricate citations. You will learn a five-gate authentication method: check the DOI, check the title, check the authors, check the abstract, access the full text. If it fails any gate, you do not use it. Trust is not a method.
+
+Once you have verified papers, you upload them to your project. Now the AI has your context and your actual sources.
+
+Phase three. Synthesis. The AI reads your uploaded papers and synthesizes: what is the consensus, where are the disagreements, what gap does your project fill. This becomes the foundation for your proposal.
+
+Phase four. Proposal generation. Using everything accumulated, you generate an ISF-structured research plan. Rationale, methodology, expected results, potential pitfalls, for each aim. Then you ask the AI to act as a critical reviewer and find the weaknesses before a real reviewer does.
+
+Four phases. One project. You drive.
+
+All workshop materials are available at the link on screen. Let's get started.

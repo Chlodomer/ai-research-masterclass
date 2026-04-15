@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISF Proposal Structure — AI for Research Workshop</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f5faf0;
+    --card: #ffffff;
+    --border: #d4e4c8;
+    --text: #1a1a1a;
+    --muted: #4a6040;
+    --green: #00493d;
+    --green-dark: #002e1a;
+    --blue: #78CDE6;
+    --blue-dark: #0e5f7a;
+    --blue-bg: #eef8fc;
+    --mint: #eef6e6;
+    --warn: #d97706;
+    --warn-bg: #fffbeb;
+    --warn-border: #fde68a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text);
+    background: var(--bg);
+    padding: 24px 16px 80px;
+  }
+
+  .container {
+    max-width: 1100px;
+    width: 92%;
+    margin: 0 auto;
+  }
+
+  /* BIU Header */
+  .biu-header {
+    background: linear-gradient(135deg, #00493d, #002e1a);
+    color: white;
+    padding: 18px 28px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .biu-header .badge {
+    background: #78CDE6; color: #002e1a; font-size: 10px; font-weight: 700;
+    padding: 4px 14px; border-radius: 20px; letter-spacing: 0.06em;
+  }
+  .biu-header .date { font-size: 12px; opacity: 0.6; margin-top: 6px; }
+  .biu-header .right-side { display: flex; align-items: center; gap: 10px; }
+  .biu-header .uni-text { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.3; }
+  .biu-header .uni-text .he { font-size: 11px; font-weight: 700; }
+  .biu-header .uni-text .en { font-size: 9px; color: #78CDE6; letter-spacing: 0.03em; }
+  .biu-header .logo-circle {
+    width: 40px; height: 40px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #00493d;
+  }
+  .biu-header .logo-circle img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.45); }
+
+  .title-bar {
+    background: #eef6e6;
+    border-bottom: 3px solid #78CDE6;
+    border-radius: 0 0 12px 12px;
+    padding: 22px 28px;
+    margin-bottom: 32px;
+    text-align: center;
+    position: relative;
+  }
+  .title-bar::after {
+    content: ''; position: absolute; bottom: -3px; left: 0; width: 80px; height: 3px; background: var(--green);
+  }
+  .title-bar h1 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 36px; font-weight: 400; font-style: italic; color: var(--green); margin-bottom: 6px;
+  }
+  .title-bar .sub { font-size: 15px; color: var(--muted); }
+
+  /* Intro */
+  .intro {
+    background: var(--blue-bg);
+    border: 1px solid #b0dff0;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .intro .intro-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--blue-dark); margin-bottom: 6px;
+  }
+
+  /* Section cards */
+  .section-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+    background: var(--green);
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .section-body {
+    padding: 18px 22px;
+  }
+
+  .section-body ul {
+    margin: 0 0 12px 18px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .section-body ul li {
+    margin-bottom: 4px;
+  }
+
+  .limit-badge {
+    display: inline-block;
+    background: var(--mint);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+
+  .reviewer-tip {
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #92400e;
+    line-height: 1.5;
+  }
+  .reviewer-tip strong { color: #78350f; }
+
+  /* Two-column grid for smaller cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 700px) {
+    .card-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Key dates banner */
+  .dates-banner {
+    background: var(--card);
+    border: 2px solid var(--green);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .dates-banner h3 {
+    font-size: 16px; font-weight: 600; color: var(--green); margin-bottom: 10px;
+  }
+  .dates-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 700px) {
+    .dates-grid { grid-template-columns: 1fr; }
+  }
+  .date-item {
+    background: var(--mint);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .date-item .d-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 4px;
+  }
+  .date-item .d-value {
+    font-size: 14px; font-weight: 600; color: var(--text);
+  }
+  .date-item .d-note {
+    font-size: 11px; color: var(--muted); margin-top: 2px;
+  }
+
+  /* Bottom rule */
+  .rule {
+    background: var(--blue-bg);
+    border: 1px solid #b0dff0;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 24px;
+    text-align: center;
+  }
+  .rule .rule-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--blue-dark); margin-bottom: 8px;
+  }
+  .rule .rule-text {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--blue-dark);
+    line-height: 1.4;
+  }
+
+  /* Formatting note */
+  .format-note {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-top: 24px;
+  }
+  .format-note h3 {
+    font-size: 16px; font-weight: 600; color: var(--green); margin-bottom: 10px;
+  }
+  .format-note ul {
+    margin: 0 0 0 18px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .format-note ul li { margin-bottom: 4px; }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  footer a { color: var(--green); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="biu-header">
+  <div>
+    <div class="badge">AI INITIATIVES</div>
+    <div class="date">April 16, 2026</div>
+  </div>
+  <div class="right-side">
+    <div class="uni-text">
+      <div class="he">אוניברסיטת בר-אילן</div>
+      <div class="en">Bar-Ilan University</div>
+    </div>
+    <div class="logo-circle">
+      <img src="biu-icon-tight.png" alt="BIU">
+    </div>
+  </div>
+</div>
+<div class="title-bar">
+  <h1>ISF Proposal Structure</h1>
+  <div class="sub">Quick reference for the Personal Research Grant (New PI Track)</div>
+</div>
+
+<!-- INTRO -->
+<div class="intro">
+  <div class="intro-label">How to Use This Page</div>
+  This is a cheat sheet, not a replacement for the official ISF guidelines. Each card below covers one section of the proposal: what goes in it, the page or word limit, and what reviewers actually look for. Keep the full guidelines open alongside this page when writing. The proposal is submitted in English via the ISF online system.
+</div>
+
+<!-- KEY DATES -->
+<div class="dates-banner">
+  <h3>Key Deadlines</h3>
+  <div class="dates-grid">
+    <div class="date-item">
+      <div class="d-label">Registration</div>
+      <div class="d-value">29 Oct 2025, 13:00</div>
+      <div class="d-note">Must register before submitting</div>
+    </div>
+    <div class="date-item">
+      <div class="d-label">Submission</div>
+      <div class="d-value">12 Nov 2025, 13:00</div>
+      <div class="d-note">After institutional approval</div>
+    </div>
+    <div class="date-item">
+      <div class="d-label">Funding Starts</div>
+      <div class="d-value">1 Oct 2026</div>
+      <div class="d-note">1-5 year grants</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: SCIENTIFIC ABSTRACT -->
+<div class="section-card">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div class="section-title">Scientific Abstract</div>
+  </div>
+  <div class="section-body">
+    <div class="limit-badge">Max 1 page (1 MB PDF)</div>
+    <ul>
+      <li>State the research question, approach, and expected significance in accessible language</li>
+      <li>Mention all specific aims; no citations</li>
+      <li>This is the first thing reviewers read and the basis for committee assignment</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> Can a non-specialist on the committee understand what you propose and why it matters? If the abstract is vague, your proposal may be routed to the wrong sub-committee.</div>
+  </div>
+</div>
+
+<!-- SECTION 2: RESEARCH PROGRAM -->
+<div class="section-card">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div class="section-title">Research Program</div>
+  </div>
+  <div class="section-body">
+    <div class="limit-badge">Max 15 pages A4 + up to 5 pages bibliography (PDF, max 16 MB)</div>
+    <p style="font-size:14px; color:var(--muted); margin-bottom:14px;">This is the core of the proposal. It is one PDF file containing the subsections below. Figures and illustrations count toward the 15-page limit. The research plan must be integrative: one coherent project, not a collection of unrelated parts.</p>
+
+    <!-- Sub-sections in grid -->
+    <div class="card-grid">
+      <!-- 2a: Scientific Background -->
+      <div class="section-card" style="margin-bottom:0;">
+        <div class="section-header" style="padding:12px 16px;">
+          <div class="section-num" style="width:28px;height:28px;font-size:12px;">2a</div>
+          <div class="section-title" style="font-size:15px;">Scientific Background</div>
+        </div>
+        <div class="section-body" style="padding:14px 16px;">
+          <ul>
+            <li>Review the state of the field and identify the gap your project addresses</li>
+            <li>For humanities/social sciences: frame the broader program the research belongs to</li>
+            <li>Position your preliminary data or prior work strategically</li>
+          </ul>
+          <div class="reviewer-tip"><strong>Reviewer lens:</strong> Does the background build a clear narrative toward a gap, or is it a disconnected literature survey? The gap should make the aims feel inevitable.</div>
+        </div>
+      </div>
+
+      <!-- 2b: Research Objectives -->
+      <div class="section-card" style="margin-bottom:0;">
+        <div class="section-header" style="padding:12px 16px;">
+          <div class="section-num" style="width:28px;height:28px;font-size:12px;">2b</div>
+          <div class="section-title" style="font-size:15px;">Objectives &amp; Significance</div>
+        </div>
+        <div class="section-body" style="padding:14px 16px;">
+          <ul>
+            <li>State the research objectives and expected significance clearly</li>
+            <li>Explain what success looks like and why it matters to the field</li>
+            <li>Connect objectives to the gap identified in the background</li>
+          </ul>
+          <div class="reviewer-tip"><strong>Reviewer lens:</strong> Are the objectives concrete and testable, or vaguely aspirational? Reviewers want to see what counts as a result.</div>
+        </div>
+      </div>
+
+      <!-- 2c: Detailed Description -->
+      <div class="section-card" style="margin-bottom:0;">
+        <div class="section-header" style="padding:12px 16px;">
+          <div class="section-num" style="width:28px;height:28px;font-size:12px;">2c</div>
+          <div class="section-title" style="font-size:15px;">Detailed Research Plan</div>
+        </div>
+        <div class="section-body" style="padding:14px 16px;">
+          <ul>
+            <li>Working hypothesis, research design, and methods</li>
+            <li>Preliminary results (if relevant); conditions and resources needed</li>
+            <li>Expected results, potential pitfalls, and alternative approaches</li>
+            <li>Include required permits/approvals for the research</li>
+          </ul>
+          <div class="reviewer-tip"><strong>Reviewer lens:</strong> Is the methodology specific enough to be feasible? Vague methods ("we will analyze...") without concrete protocols raise red flags. Include contingency plans.</div>
+        </div>
+      </div>
+
+      <!-- 2d: Bibliography -->
+      <div class="section-card" style="margin-bottom:0;">
+        <div class="section-header" style="padding:12px 16px;">
+          <div class="section-num" style="width:28px;height:28px;font-size:12px;">2d</div>
+          <div class="section-title" style="font-size:15px;">Bibliography</div>
+        </div>
+        <div class="section-body" style="padding:14px 16px;">
+          <ul>
+            <li>Up to 5 printed pages (line spacing 1.0); full citation for every reference</li>
+            <li>Include title, all authors, and the specific publication venue for each item</li>
+            <li>Verify every reference; a fabricated citation can disqualify the proposal</li>
+          </ul>
+          <div class="reviewer-tip"><strong>Reviewer lens:</strong> Number your bibliography items. Missing or inaccurate references undermine trust in the entire proposal. If using AI for literature discovery, run every citation through the verification checklist.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: BIBLIOGRAPHY WITH STARS -->
+<div class="section-card">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div class="section-title">Bibliography with Stars</div>
+  </div>
+  <div class="section-body">
+    <div class="limit-badge">Separate file</div>
+    <ul>
+      <li>A copy of the bibliography with starred (*) publications most relevant to the proposal topic</li>
+      <li>Must include full publication titles and all authors' names</li>
+      <li>Serves as a committee tool: helps identify reviewers and assess alignment</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> The starred items signal which intellectual conversation you see yourself in. Choose them carefully; they often guide reviewer assignment.</div>
+  </div>
+</div>
+
+<!-- SECTION 4: TIME SCHEDULE -->
+<div class="section-card">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div class="section-title">Time Schedule</div>
+  </div>
+  <div class="section-body">
+    <div class="limit-badge">Part of the research program</div>
+    <ul>
+      <li>Detail the stages of the research in a table; include verbal explanatory notes</li>
+      <li>Must cover the full grant period (1-5 years)</li>
+      <li>For descriptive/non-linear research, note that timelines are approximate but still include one</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> Is the timeline realistic given the scope? Overly ambitious year-one plans or empty later years suggest poor planning.</div>
+  </div>
+</div>
+
+<!-- SECTION 5: BUDGET -->
+<div class="section-card">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div class="section-title">Budget</div>
+  </div>
+  <div class="section-body">
+    <div class="limit-badge">In NIS; includes dedicated equipment section</div>
+    <ul>
+      <li><strong>Personnel:</strong> Scholarships or salary for research team; PI cannot draw salary from the grant</li>
+      <li><strong>Tools &amp; materials:</strong> Research consumables, professional literature, journal subscriptions (up to 15,000 NIS/year)</li>
+      <li><strong>Services:</strong> Lab services, consulting, payments for data processing (section 3.14 rules apply)</li>
+      <li><strong>Other expenses:</strong> Up to 6,000 NIS/year for student travel; no PI travel/conference costs</li>
+      <li><strong>Computers:</strong> Max 1 computer + 1 laptop/tablet per PI; for office/lab use, not home</li>
+      <li><strong>Equipment:</strong> Up to 120,000 NIS for dedicated research equipment (not counted toward the annual budget cap)</li>
+      <li><strong>Overhead:</strong> 17% automatically added on top of total allocation</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> Every line item needs justification. Budgets that don't match the described activities, or that look inflated, signal carelessness. The ISF can reduce or cut the grant if the budget doesn't align.</div>
+  </div>
+</div>
+
+<!-- SECTION 6: CV & RECENT GRANTS -->
+<div class="section-card">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <div class="section-title">CV, Recent Grants &amp; Investigators</div>
+  </div>
+  <div class="section-body">
+    <div class="limit-badge">CV: max 1 page per PI; Recent Grants: max 2 pages (1 MB)</div>
+    <ul>
+      <li><strong>CV:</strong> List Ph.D. and postdoctoral mentor for each PI; keep it concise</li>
+      <li><strong>Recent ISF Grants:</strong> Report on any ISF-funded project in the last ~10 years; include outcomes, publications, and whether the grant achieved its goals</li>
+      <li>If resubmitting, explain changes from the previous submission (up to 5 pages); do not mention the previous application number</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> For resubmissions, reviewers check whether you addressed prior feedback seriously. A resubmission that ignores previous critiques will not fare better the second time.</div>
+  </div>
+</div>
+
+<!-- SECTION 7: APPENDIX & COLLABORATORS -->
+<div class="section-card">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <div class="section-title">Appendix &amp; Collaborators</div>
+  </div>
+  <div class="section-body">
+    <div class="limit-badge">Collaborator letters: max 2 pages each (readable font)</div>
+    <ul>
+      <li>List names of all collaborating researchers, shared projects, and co-publications from the last 5 years</li>
+      <li>Each collaborator letter must describe the collaboration's scope and the collaborator's institution</li>
+      <li>Letters should not read like generic endorsements; specify what the collaborator contributes</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> Collaboration letters that are vague or overly enthusiastic without specifics add nothing. A concrete letter that says "I will provide X method/resource for Y aim" is worth ten times a general endorsement.</div>
+  </div>
+</div>
+
+<!-- SECTION 8: DECLARATIONS -->
+<div class="section-card">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <div class="section-title">Declarations</div>
+  </div>
+  <div class="section-body">
+    <div class="limit-badge">Required forms in the online system</div>
+    <ul>
+      <li><strong>Parallel submission:</strong> Disclose any overlapping active grants or pending proposals (in Israel or abroad)</li>
+      <li><strong>Industrial/commercial funding:</strong> Declare if the research is similar to commercially funded work</li>
+      <li><strong>Family ties:</strong> Declare close family ties with ISF staff or governance members</li>
+      <li><strong>Basic research declaration:</strong> Confirm this is fundamental research conducted in your category</li>
+      <li><strong>LLM use:</strong> If you used a large language model in writing, disclose this; you remain solely responsible for all content</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> Missing or incomplete declarations can delay or disqualify your proposal. The LLM disclosure is new; be transparent about AI assistance and ensure all content is verified.</div>
+  </div>
+</div>
+
+<!-- SECTION 9: AUTHORITIES' CERTIFICATES -->
+<div class="section-card">
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <div class="section-title">Authorities' Certificates</div>
+  </div>
+  <div class="section-body">
+    <div class="limit-badge">Institutional approval required before submission</div>
+    <ul>
+      <li>Your Research Authority must approve the proposal before you can submit</li>
+      <li>Ethics, animal, and human subject approvals are needed at the proposal stage (not just at funding)</li>
+      <li>Budget is released only after all required certificates are provided to the ISF</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> Check your institution's internal deadline; it is usually earlier than the ISF deadline. Late institutional approval means no submission.</div>
+  </div>
+</div>
+
+<!-- FORMATTING RULES -->
+<div class="format-note">
+  <h3>Formatting Rules</h3>
+  <ul>
+    <li>All attachments must be uploaded as <strong>PDF only</strong></li>
+    <li>Research Program: A4, minimum 2 cm margins on all sides, minimum 11pt font (1.5 line spacing recommended)</li>
+    <li>Figures and images must be high-resolution and clearly readable</li>
+    <li>Entire proposal is in <strong>English</strong>; avoid Hebrew text in the body (exceptions: keywords in the registration form)</li>
+    <li>If requesting a Hebrew-language proposal (humanities), submit a brief abstract in Hebrew and get prior ISF approval</li>
+    <li>Maximum 4 primary investigators per proposal; one PI can only appear as primary on one ISF proposal at a time</li>
+  </ul>
+</div>
+
+<!-- RULE -->
+<div class="rule">
+  <div class="rule-label">The Principle</div>
+  <div class="rule-text">The sole criterion for evaluation is scientific excellence.<br>Everything in your proposal should serve that, and nothing else.</div>
+</div>
+
+<footer>
+  AI for Research Master Class &bull; Prof. Yaniv Fox &bull; Bar-Ilan University &bull; April 2026<br>
+  <a href="index.html">Landing Page</a> &bull;
+  <a href="workshop-guide.html">Workshop Guide</a> &bull;
+  <a href="verification.html">Verification Checklist</a> &bull;
+  <a href="context-brief.html">Context Brief</a>
+</footer>
+
+</div>
+
+</body>
+</html>
