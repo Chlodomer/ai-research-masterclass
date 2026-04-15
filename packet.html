@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workshop Packet — AI for Research</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --green: #00493d;
+    --green-dark: #002e1a;
+    --blue: #78CDE6;
+    --blue-dark: #0e5f7a;
+    --blue-bg: #eef8fc;
+    --mint: #eef6e6;
+    --text: #1a1a1a;
+    --muted: #4a6040;
+    --bg: #f5faf0;
+    --card: #ffffff;
+    --border: #d4e4c8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+    padding: 24px 16px 80px;
+  }
+
+  .container {
+    max-width: 1100px;
+    width: 92%;
+    margin: 0 auto;
+  }
+
+  /* BIU Header */
+  .biu-header {
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    color: white;
+    padding: 18px 28px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .biu-header .badge {
+    background: var(--blue); color: var(--green-dark); font-size: 10px; font-weight: 700;
+    padding: 4px 14px; border-radius: 20px; letter-spacing: 0.06em;
+  }
+  .biu-header .date { font-size: 12px; opacity: 0.6; margin-top: 6px; }
+  .biu-header .right-side { display: flex; align-items: center; gap: 10px; }
+  .biu-header .uni-text { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.3; }
+  .biu-header .uni-text .he { font-size: 11px; font-weight: 700; }
+  .biu-header .uni-text .en { font-size: 9px; color: var(--blue); letter-spacing: 0.03em; }
+  .biu-header .logo-circle {
+    width: 40px; height: 40px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: var(--green);
+  }
+  .biu-header .logo-circle img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.45); }
+
+  .nav-home {
+    display: block; background: white; border-bottom: 1px solid var(--border);
+    padding: 12px 28px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none;
+  }
+  .nav-home:hover { background: var(--mint); }
+
+  .title-bar {
+    background: var(--mint); border-bottom: 3px solid var(--blue);
+    border-radius: 0 0 12px 12px; padding: 22px 28px; margin-bottom: 32px;
+    text-align: center; position: relative;
+  }
+  .title-bar::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 80px; height: 3px; background: var(--green); }
+  .title-bar h1 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 36px; font-weight: 400; font-style: italic; color: var(--green); margin-bottom: 6px;
+  }
+  .title-bar .sub { font-size: 15px; color: var(--muted); }
+
+  /* Download section */
+  .download-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .download-section h2 {
+    font-size: 22px; font-weight: 600; color: var(--green); margin-bottom: 8px;
+  }
+  .download-section p {
+    font-size: 15px; color: var(--muted); margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto;
+  }
+  .download-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, var(--green), #007a4a);
+    color: white; font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
+    padding: 18px 36px; border-radius: 12px; border: none; cursor: pointer; text-decoration: none;
+    transition: all 0.2s; box-shadow: 0 4px 16px rgba(0,73,61,0.25);
+  }
+  .download-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,73,61,0.35); }
+  .download-btn svg { width: 22px; height: 22px; }
+  .download-note {
+    font-size: 13px; color: var(--muted); margin-top: 12px;
+  }
+
+  /* Contents list */
+  .contents {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 36px;
+    margin-bottom: 28px;
+  }
+  .contents h3 {
+    font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 16px;
+  }
+  .contents-list {
+    list-style: none;
+  }
+  .contents-list li {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid #eee; font-size: 15px;
+  }
+  .contents-list li:last-child { border-bottom: none; }
+  .contents-list .page-badge {
+    flex-shrink: 0; width: 60px; text-align: center;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.05em;
+    padding: 3px 8px; border-radius: 6px;
+  }
+  .pg-green { background: #e8f4e0; color: var(--green); }
+  .pg-blue { background: var(--blue-bg); color: var(--blue-dark); }
+  .pg-amber { background: #fef3c7; color: #92400e; }
+  .pg-purple { background: #f5f3ff; color: #7c3aed; }
+  .pg-rose { background: #fff1f2; color: #e11d48; }
+
+  footer {
+    text-align: center; margin-top: 40px; font-size: 13px; color: var(--muted);
+  }
+  footer a { color: var(--green); text-decoration: none; }
+
+  @media print { .nav-home, .download-section { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="biu-header">
+  <div>
+    <div class="badge">AI INITIATIVES</div>
+    <div class="date">April 16, 2026</div>
+  </div>
+  <div class="right-side">
+    <div class="uni-text">
+      <div class="he">אוניברסיטת בר-אילן</div>
+      <div class="en">Bar-Ilan University</div>
+    </div>
+    <div class="logo-circle">
+      <img src="biu-icon-tight.png" alt="BIU">
+    </div>
+  </div>
+</div>
+<a class="nav-home" href="index.html">← Back to Workshop Home</a>
+<div class="title-bar">
+  <h1>Workshop Packet</h1>
+  <div class="sub">All workshop materials in one PDF</div>
+</div>
+
+<!-- DOWNLOAD -->
+<div class="download-section">
+  <h2>Download the Complete Packet</h2>
+  <p>Everything from the workshop in a single PDF: the prompt guide, verification checklist, ISF proposal structure, and quick reference. Print it or keep it on your device.</p>
+  <a class="download-btn" href="AI-for-Research-Workshop-Packet.pdf" download>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download Workshop Packet (PDF)
+  </a>
+  <div class="download-note">Includes all materials from the workshop. ~15 pages.</div>
+</div>
+
+<!-- CONTENTS -->
+<div class="contents">
+  <h3>What's Inside</h3>
+  <ul class="contents-list">
+    <li>
+      <span class="page-badge pg-green">Guide</span>
+      <span><strong>Workshop Guide</strong> — All prompts, color-coded and annotated, for every phase</span>
+    </li>
+    <li>
+      <span class="page-badge pg-rose">Verify</span>
+      <span><strong>Verification Checklist</strong> — Five-gate authentication flow for AI-suggested bibliography</span>
+    </li>
+    <li>
+      <span class="page-badge pg-blue">ISF</span>
+      <span><strong>ISF Proposal Structure</strong> — Every section, page limits, and reviewer tips</span>
+    </li>
+    <li>
+      <span class="page-badge pg-purple">Reference</span>
+      <span><strong>Quick Reference Card</strong> — The five principles of context engineering</span>
+    </li>
+    <li>
+      <span class="page-badge pg-amber">QR</span>
+      <span><strong>Workshop URL + QR Code</strong> — For accessing the interactive tools online</span>
+    </li>
+  </ul>
+</div>
+
+<footer>
+  AI for Research Master Class &bull; Prof. Yaniv Fox &bull; Bar-Ilan University &bull; April 2026<br>
+  <a href="index.html">Workshop Home</a> &bull;
+  <a href="https://github.com/Chlodomer/ai-research-masterclass">GitHub</a>
+</footer>
+
+</div>
+
+</body>
+</html>

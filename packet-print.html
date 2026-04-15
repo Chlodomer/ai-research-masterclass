@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for Research: Workshop Packet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  @page { size: A4; margin: 14mm 14mm; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #1a1a1a;
+    background: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ===== COVER PAGE ===== */
+  .cover-page {
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    text-align: center;
+  }
+
+  .cover-header {
+    background: linear-gradient(135deg, #00493d, #002e1a);
+    color: white;
+    padding: 28px 40px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 48px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .cover-header .badge {
+    background: #78CDE6; color: #002e1a; font-size: 11px; font-weight: 700;
+    padding: 5px 16px; border-radius: 20px; letter-spacing: 0.06em;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .cover-header .right-side { display: flex; align-items: center; gap: 12px; }
+  .cover-header .uni-text { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.3; }
+  .cover-header .uni-text .he { font-size: 12px; font-weight: 700; }
+  .cover-header .uni-text .en { font-size: 10px; color: #78CDE6; letter-spacing: 0.03em; }
+  .cover-header .logo-circle {
+    width: 48px; height: 48px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #00493d;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .cover-header .logo-circle img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.45); }
+
+  .cover-title {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 42px;
+    font-weight: 400;
+    font-style: italic;
+    color: #00493d;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .cover-subtitle {
+    font-size: 16px;
+    color: #4a6040;
+    margin-bottom: 6px;
+  }
+  .cover-author {
+    font-size: 14px;
+    color: #4a6040;
+  }
+
+  /* ===== SECTION HEADERS ===== */
+  .section-divider {
+    margin: 24px 0 16px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .section-divider .sec-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: white;
+    background: #00493d; flex-shrink: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  h1 { font-size: 26px; }
+  h2 {
+    font-size: 18px;
+    break-after: avoid;
+    color: #00493d;
+    margin-bottom: 8px;
+  }
+  h3 {
+    font-size: 14px;
+    break-after: avoid;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+
+  /* ===== PHASE HEADERS ===== */
+  .phase-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin: 16px 0 10px;
+    break-after: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .phase-bar.context { background: #e8f4e0; border-left: 3px solid #00493d; }
+  .phase-bar.biblio { background: #eef8fc; border-left: 3px solid #0e5f7a; }
+  .phase-bar.build { background: #fef3c7; border-left: 3px solid #92400e; }
+  .phase-bar.proposal { background: #f5f3ff; border-left: 3px solid #7c3aed; }
+
+  .phase-num {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap;
+  }
+  .phase-bar.context .phase-num { color: #00493d; }
+  .phase-bar.biblio .phase-num { color: #0e5f7a; }
+  .phase-bar.build .phase-num { color: #92400e; }
+  .phase-bar.proposal .phase-num { color: #7c3aed; }
+
+  .phase-title {
+    font-size: 16px; font-weight: 600;
+  }
+  .phase-bar.context .phase-title { color: #00493d; }
+  .phase-bar.biblio .phase-title { color: #0e5f7a; }
+  .phase-bar.build .phase-title { color: #92400e; }
+  .phase-bar.proposal .phase-title { color: #7c3aed; }
+
+  .phase-time {
+    margin-left: auto; font-size: 11px; font-weight: 600; opacity: 0.6;
+  }
+
+  .phase-desc {
+    font-size: 12px; color: #4a6040; margin-bottom: 10px; padding: 0 2px;
+  }
+
+  /* ===== PROMPT CARDS ===== */
+  .prompt-card {
+    background: #ffffff;
+    border: 1px solid #d4e4c8;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    break-inside: avoid;
+  }
+
+  .prompt-card-header {
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #d4e4c8;
+    background: #fafaf8;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .step-badge {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 4px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .step-badge.context { background: #e8f4e0; color: #00493d; border: 1px solid #b8d4a8; }
+  .step-badge.biblio { background: #eef8fc; color: #0e5f7a; border: 1px solid #b0dff0; }
+  .step-badge.build { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+  .step-badge.proposal { background: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe; }
+
+  .step-title {
+    font-size: 13px; font-weight: 600;
+  }
+
+  .prompt-block {
+    background: #1a1a2e;
+    color: #e8e8f0;
+    padding: 12px 16px;
+    font-family: 'JetBrains Mono', 'Menlo', monospace;
+    font-size: 11px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Colored spans inside prompts */
+  .prompt-block .hl-context { color: #86efac; }
+  .prompt-block .hl-biblio { color: #78CDE6; }
+  .prompt-block .hl-build { color: #fcd34d; }
+  .prompt-block .hl-proposal { color: #c4b5fd; }
+  .prompt-block .hl-constraint { color: #fda4af; }
+  .prompt-block .hl-structure { color: #fdba74; }
+
+  /* Annotation section */
+  .annotations {
+    padding: 10px 14px;
+  }
+  .annotations h4 {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #4a6040; margin-bottom: 8px;
+  }
+  .annotations p {
+    font-size: 12px; line-height: 1.5; color: #1a1a1a; margin-bottom: 6px;
+  }
+  .annotations a {
+    color: #00493d; text-decoration: none; font-weight: 600;
+  }
+
+  .anno-row {
+    display: flex; gap: 8px; margin-bottom: 6px; align-items: flex-start;
+  }
+  .anno-color {
+    flex-shrink: 0; width: 10px; height: 10px; border-radius: 3px; margin-top: 2px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .anno-color.context { background: #86efac; }
+  .anno-color.biblio { background: #78CDE6; }
+  .anno-color.build { background: #fcd34d; }
+  .anno-color.proposal { background: #c4b5fd; }
+  .anno-color.constraint { background: #fda4af; }
+  .anno-color.structure { background: #fdba74; }
+
+  .anno-text {
+    font-size: 12px; line-height: 1.45; color: #1a1a1a;
+  }
+  .anno-text strong { font-weight: 600; }
+
+  /* ===== INFO BOXES ===== */
+  .info-box {
+    background: #eef6e6;
+    border: 1px solid #b8d4a8;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 12px;
+    line-height: 1.5;
+    break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .info-box .info-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #00493d; margin-bottom: 4px;
+  }
+
+  /* ===== GATE CARDS (Verification) ===== */
+  .gate {
+    background: #ffffff;
+    border: 1px solid #d4e4c8;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    break-inside: avoid;
+  }
+
+  .gate-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 1px solid #d4e4c8;
+  }
+  .gate-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: white;
+    flex-shrink: 0; background: #00493d;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .gate-title {
+    font-size: 14px; font-weight: 600; color: #1a1a1a;
+  }
+
+  .gate-body {
+    padding: 10px 14px;
+  }
+  .gate-action {
+    font-size: 12px; font-weight: 600; color: #0e5f7a; margin-bottom: 6px;
+  }
+  .gate-how {
+    font-size: 11px; color: #4a6040; margin-bottom: 8px; line-height: 1.45;
+  }
+
+  .outcome-row {
+    display: flex; gap: 8px; margin-bottom: 6px;
+  }
+  .outcome {
+    flex: 1; padding: 8px 10px; border-radius: 6px; font-size: 11px; line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .outcome.pass {
+    background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534;
+  }
+  .outcome.fail {
+    background: #fef2f2; border: 1px solid #fecaca; color: #991b1b;
+  }
+  .outcome .outcome-label {
+    font-weight: 700; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px;
+  }
+
+  .gotcha {
+    background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px;
+    padding: 8px 10px; font-size: 11px; color: #92400e; margin-top: 6px; line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .gotcha strong { color: #78350f; }
+
+  /* ===== ISF SECTION CARDS ===== */
+  .isf-card {
+    background: #ffffff;
+    border: 1px solid #d4e4c8;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    break-inside: avoid;
+  }
+  .isf-card-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 1px solid #d4e4c8;
+  }
+  .isf-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: white;
+    flex-shrink: 0; background: #00493d;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .isf-title {
+    font-size: 14px; font-weight: 600; color: #1a1a1a;
+  }
+  .isf-body {
+    padding: 10px 14px;
+  }
+  .isf-body ul {
+    margin: 0 0 8px 16px; font-size: 12px; color: #1a1a1a; line-height: 1.5;
+  }
+  .isf-body ul li { margin-bottom: 3px; }
+
+  .limit-badge {
+    display: inline-block;
+    background: #eef6e6; border: 1px solid #d4e4c8; border-radius: 4px;
+    padding: 2px 8px; font-size: 10px; font-weight: 600; color: #00493d; margin-bottom: 8px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .reviewer-tip {
+    background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px;
+    padding: 8px 10px; font-size: 11px; color: #92400e; line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .reviewer-tip strong { color: #78350f; }
+
+  /* ISF sub-cards (2a-2d grid) */
+  .isf-sub-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;
+  }
+  .isf-sub-card {
+    border: 1px solid #d4e4c8; border-radius: 6px; overflow: hidden;
+    break-inside: avoid;
+  }
+  .isf-sub-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px; border-bottom: 1px solid #d4e4c8;
+  }
+  .isf-sub-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: white;
+    flex-shrink: 0; background: #00493d;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .isf-sub-title {
+    font-size: 12px; font-weight: 600; color: #1a1a1a;
+  }
+  .isf-sub-body {
+    padding: 8px 10px;
+  }
+  .isf-sub-body ul {
+    margin: 0 0 6px 14px; font-size: 11px; color: #1a1a1a; line-height: 1.4;
+  }
+  .isf-sub-body ul li { margin-bottom: 2px; }
+
+  /* ===== SUMMARY CARDS ===== */
+  .summary-card {
+    background: #ffffff; border: 2px solid #00493d; border-radius: 8px;
+    padding: 14px 18px; margin: 14px 0;
+    break-inside: avoid;
+  }
+  .summary-card h3 {
+    font-size: 14px; font-weight: 600; color: #00493d; margin-bottom: 8px;
+  }
+  .summary-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+  }
+  .summary-item {
+    padding: 8px 10px; border-radius: 6px; text-align: center;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .summary-item.s-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .summary-item.s-warn { background: #fffbeb; border: 1px solid #fde68a; }
+  .summary-item.s-fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .summary-item .s-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px;
+  }
+  .summary-item.s-pass .s-label { color: #16a34a; }
+  .summary-item.s-warn .s-label { color: #d97706; }
+  .summary-item.s-fail .s-label { color: #dc2626; }
+  .summary-item .s-text { font-size: 11px; line-height: 1.3; }
+
+  /* ===== RULE BOX ===== */
+  .rule {
+    background: #eef8fc; border: 1px solid #b0dff0; border-radius: 8px;
+    padding: 14px 18px; margin: 14px 0; text-align: center;
+    break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .rule .rule-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #0e5f7a; margin-bottom: 6px;
+  }
+  .rule .rule-text {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 17px; font-style: italic; color: #0e5f7a; line-height: 1.35;
+  }
+
+  /* ===== KEY DATES ===== */
+  .dates-banner {
+    background: #ffffff; border: 2px solid #00493d; border-radius: 8px;
+    padding: 12px 16px; margin-bottom: 14px;
+    break-inside: avoid;
+  }
+  .dates-banner h3 {
+    font-size: 13px; font-weight: 600; color: #00493d; margin-bottom: 8px;
+  }
+  .dates-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+  }
+  .date-item {
+    background: #eef6e6; border-radius: 6px; padding: 8px 10px; text-align: center;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .date-item .d-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #00493d; margin-bottom: 2px;
+  }
+  .date-item .d-value { font-size: 12px; font-weight: 600; color: #1a1a1a; }
+  .date-item .d-note { font-size: 9px; color: #4a6040; margin-top: 1px; }
+
+  /* ===== FORMAT NOTE ===== */
+  .format-note {
+    background: #ffffff; border: 1px solid #d4e4c8; border-radius: 8px;
+    padding: 12px 16px; margin-top: 14px;
+    break-inside: avoid;
+  }
+  .format-note h3 {
+    font-size: 13px; font-weight: 600; color: #00493d; margin-bottom: 6px;
+  }
+  .format-note ul {
+    margin: 0 0 0 16px; font-size: 11px; color: #1a1a1a; line-height: 1.5;
+  }
+  .format-note ul li { margin-bottom: 2px; }
+
+  /* ===== QUICK REFERENCE ===== */
+  .principles-card {
+    background: #ffffff; border: 1px solid #d4e4c8; border-radius: 8px;
+    padding: 14px 18px; margin: 14px 0;
+    break-inside: avoid;
+  }
+  .principles-card h3 {
+    font-size: 15px; font-weight: 600; color: #00493d; margin-bottom: 10px;
+  }
+  .principle-row {
+    display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px;
+  }
+  .principle-row .anno-color { margin-top: 3px; }
+  .principle-row div:last-child { font-size: 12px; line-height: 1.45; }
+  .principle-row strong { font-weight: 600; }
+
+  /* ===== QR PAGE ===== */
+  .qr-page {
+    page-break-before: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    text-align: center;
+    padding-top: 120px;
+  }
+  .qr-page img {
+    width: 200px; height: 200px; margin-bottom: 16px;
+  }
+  .qr-page .qr-url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: #00493d; font-weight: 500;
+  }
+  .qr-page .qr-label {
+    font-size: 13px; color: #4a6040; margin-bottom: 12px;
+  }
+
+  /* ===== COLOR LEGEND ===== */
+  .color-legend {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px;
+  }
+  .color-legend span {
+    display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600;
+  }
+
+  /* ===== CONNECTOR ===== */
+  .connector {
+    text-align: center; color: #d4e4c8; font-size: 18px; margin: -4px 0; position: relative; z-index: 1;
+  }
+
+  /* ===== INTRO BOXES ===== */
+  .intro-red {
+    background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 14px; font-size: 12px; line-height: 1.5;
+    break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .intro-red .intro-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #dc2626; margin-bottom: 4px;
+  }
+
+  .intro-blue {
+    background: #eef8fc; border: 1px solid #b0dff0; border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 14px; font-size: 12px; line-height: 1.5;
+    break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .intro-blue .intro-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #0e5f7a; margin-bottom: 4px;
+  }
+
+  /* ===== BREAK CARD ===== */
+  .break-card {
+    background: linear-gradient(135deg, #00493d, #007a4a);
+    color: white; border-radius: 8px; padding: 10px 16px;
+    text-align: center; margin: 14px 0;
+    font-size: 14px; font-weight: 600;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Divider */
+  .divider {
+    border: none; border-top: 1px solid #d4e4c8; margin: 16px 0; opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- COVER PAGE                                                     -->
+<!-- ============================================================ -->
+<div class="cover-page">
+  <div class="cover-header">
+    <div>
+      <div class="badge">AI INITIATIVES</div>
+    </div>
+    <div class="right-side">
+      <div class="uni-text">
+        <div class="he">&#1488;&#1493;&#1504;&#1497;&#1489;&#1512;&#1505;&#1497;&#1496;&#1514; &#1489;&#1512;-&#1488;&#1497;&#1500;&#1503;</div>
+        <div class="en">Bar-Ilan University</div>
+      </div>
+      <div class="logo-circle">
+        <img src="biu-icon-tight.png" alt="BIU">
+      </div>
+    </div>
+  </div>
+  <div class="cover-title">AI for Research:<br>Workshop Packet</div>
+  <div class="cover-subtitle">Prof. Yaniv Fox, Bar-Ilan University</div>
+  <div class="cover-author">April 2026</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: WORKSHOP GUIDE                                      -->
+<!-- ============================================================ -->
+<div class="section-divider" style="background: #eef6e6;">
+  <div class="sec-num">1</div>
+  <h2 style="margin-bottom: 0;">Workshop Guide</h2>
+</div>
+
+<!-- Color Legend -->
+<div class="info-box">
+  <div class="info-label">How to Read This Guide</div>
+  Each prompt is color-coded. The colors tell you <em>why</em> each part of the prompt works:
+  <div class="color-legend">
+    <span><span class="anno-color context"></span> Context</span>
+    <span><span class="anno-color biblio"></span> Bibliography</span>
+    <span><span class="anno-color build"></span> Synthesis</span>
+    <span><span class="anno-color proposal"></span> Proposal</span>
+    <span><span class="anno-color structure"></span> Structure</span>
+    <span><span class="anno-color constraint"></span> Constraints</span>
+  </div>
+</div>
+
+<!-- ====== PHASE 1 ====== -->
+<div class="phase-bar context">
+  <div class="phase-num">Phase 1</div>
+  <div class="phase-title">Context Brief + Project Setup</div>
+  <div class="phase-time">25 min</div>
+</div>
+<div class="phase-desc">Fill out the Context Brief form, paste it into your AI tool, then set up a project with a system prompt.</div>
+
+<!-- Step 1.1 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge context">Step 1</div>
+    <div class="step-title">Fill Out the Context Brief</div>
+  </div>
+  <div class="annotations">
+    <p>Open <strong>chlodomer.github.io/ai-research-masterclass</strong> and fill out the form. When done, click <strong>Generate Context Brief</strong> and then <strong>Copy to Clipboard</strong>.</p>
+    <p>Open a new conversation in your AI tool (ChatGPT, Gemini, Claude, or any other). Paste the context brief and send it.</p>
+  </div>
+</div>
+
+<!-- Step 1.2 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge context">Step 2</div>
+    <div class="step-title">Create a Project</div>
+  </div>
+  <div class="annotations">
+    <p><strong>ChatGPT:</strong> Sidebar &rarr; Projects &rarr; New Project &rarr; name it after your research topic.<br>
+    <strong>Claude:</strong> Sidebar &rarr; Projects &rarr; Create Project.<br>
+    <strong>Gemini:</strong> Sidebar &rarr; Notebooks &rarr; New Notebook.</p>
+    <p>Move the conversation you just had into the project.</p>
+  </div>
+</div>
+
+<!-- Step 1.3 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge context">Step 3</div>
+    <div class="step-title">Generate a System Prompt</div>
+  </div>
+  <div class="prompt-block"><span class="hl-context">Based on everything I've told you about my research,</span> <span class="hl-proposal">write a system prompt for this project.</span>
+
+<span class="hl-structure">The prompt should ensure that any new conversation in this project starts with full knowledge of my research area, my terminology, my aims, and my constraints.</span>
+
+<span class="hl-constraint">It should be concise but complete. Do not include pleasantries or generic instructions.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color context"></div>
+      <div class="anno-text"><strong>"Based on everything I've told you"</strong> tells the AI to draw on the context brief you already provided, not to guess.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color proposal"></div>
+      <div class="anno-text"><strong>"Write a system prompt"</strong> is a meta-task: you're asking the AI to write instructions for itself. It knows how to do this well.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color structure"></div>
+      <div class="anno-text"><strong>"Terminology, aims, constraints"</strong> tells the AI exactly what categories to include. Without this, it will produce something generic.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>"Concise but complete"</strong> prevents a bloated prompt. <strong>"No pleasantries"</strong> cuts the filler.</div>
+    </div>
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-label">What to Do with the Output</div>
+  Copy the system prompt the AI generates. Go to your project settings and paste it into the <strong>Instructions</strong> field. Now every new conversation in this project inherits your research context automatically. Test it: open a new chat in the project and ask <strong>"What do you know about my research?"</strong>
+</div>
+
+<!-- ====== PHASE 2 ====== -->
+<div class="phase-bar biblio">
+  <div class="phase-num">Phase 2</div>
+  <div class="phase-title">Bibliography Discovery</div>
+  <div class="phase-time">35 min</div>
+</div>
+<div class="phase-desc">Find relevant literature using your primed AI session. Three levels: basic, intermediate, advanced.</div>
+
+<!-- Step 2.1 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge biblio">Level 1 &mdash; Basic</div>
+    <div class="step-title">Quick Literature Search</div>
+  </div>
+  <div class="prompt-block"><span class="hl-context">Based on my research question and aims,</span> <span class="hl-biblio">suggest 10 recent papers</span> that are directly relevant to my project.
+
+<span class="hl-structure">For each paper, provide:
+- Full citation (authors, year, title, journal)
+- One sentence on its main contribution
+- One sentence on how it connects to my specific aims</span>
+
+<span class="hl-constraint">Prioritize empirical work over reviews. Do not suggest papers outside the boundaries I defined in my context brief.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color context"></div>
+      <div class="anno-text"><strong>"Based on my research question and aims"</strong> anchors the search to your project, not to the general topic. This is why the context brief matters.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color biblio"></div>
+      <div class="anno-text"><strong>"10 recent papers"</strong> gives a concrete, evaluable target. You can judge whether the results are good.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color structure"></div>
+      <div class="anno-text"><strong>"For each paper, provide..."</strong> specifies the output format. Without this, you get a wall of text. With it, you get a table you can scan.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>"Do not suggest papers outside the boundaries"</strong> activates the "do not search for" constraints from your context brief. This is where those exclusions pay off.</div>
+    </div>
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-label">Verification Checkpoint</div>
+  For every paper the AI suggests: <strong>click the DOI or search the title</strong>. Confirm it exists, the title matches, and the abstract aligns with what the AI claims. AI can still fabricate citations. Never cite a source you haven't personally confirmed.
+</div>
+
+<!-- Step 2.2a -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge biblio">Level 2a &mdash; Intermediate</div>
+    <div class="step-title">Generate a Deep Research Prompt</div>
+  </div>
+  <div class="annotations">
+    <p>Instead of writing a deep research prompt from scratch, let the AI write it for you. It already has your full context brief, so it knows your terms, your scholars, and your boundaries. It will compose a better search prompt than you would write cold.</p>
+  </div>
+  <div class="prompt-block"><span class="hl-context">Based on my context brief,</span> <span class="hl-biblio">write a comprehensive deep research prompt</span> that will produce an exhaustive literature review for my project.
+
+<span class="hl-structure">The prompt should include:
+- My research question and specific aims
+- The key scholars and foundational texts to anchor the search
+- The boundaries (what NOT to include)
+- Instructions to organize by theme, not chronologically
+- A request for full citations with DOIs</span>
+
+<span class="hl-constraint">Write it as a single, self-contained prompt I can paste into Deep Research.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color context"></div>
+      <div class="anno-text"><strong>"Based on my context brief"</strong> leverages everything you've already provided. The AI assembles your terms, scholars, aims, and exclusions into a search prompt automatically.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color biblio"></div>
+      <div class="anno-text"><strong>"Comprehensive deep research prompt"</strong> is a meta-task: the AI writes instructions for a research agent. It knows what makes a good research query because it is one.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color structure"></div>
+      <div class="anno-text"><strong>Five bullet points</strong> tell the AI exactly what ingredients the prompt needs. Without this, it will produce something generic. With it, the prompt is tailored to your project.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>"Self-contained"</strong> means the output can be pasted directly into Deep Research without editing. The AI packages everything into one block.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 2.2b -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge biblio">Level 2b &mdash; Intermediate</div>
+    <div class="step-title">Launch Deep Research</div>
+  </div>
+  <div class="annotations">
+    <p><strong>ChatGPT:</strong> Open a new chat &rarr; select Deep Research mode (or type your prompt and choose "Deep Research" from the model picker).<br>
+    <strong>Gemini:</strong> Open a new chat &rarr; click "Deep Research" in the tools menu.<br>
+    <strong>Claude:</strong> Open a new chat &rarr; use the extended thinking / research mode.</p>
+    <p>Paste the prompt the AI generated for you. Review the plan it proposes. If it looks right, launch it. This will run for 10-30 minutes and produce a structured report.</p>
+    <p><strong>While it runs:</strong> you can continue working in other threads within your project. You don't need to wait.</p>
+    <p><strong>When it finishes:</strong> apply the Verification Checklist to every citation before using it.</p>
+  </div>
+</div>
+
+<!-- Step 2.3 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge biblio">Level 3 &mdash; Advanced</div>
+    <div class="step-title">Upload Papers as Context</div>
+  </div>
+  <div class="annotations">
+    <p>Download 2-3 PDFs of papers you found and verified. Upload them to your conversation (drag and drop or use the attachment button).</p>
+    <p>Once uploaded, the AI can read the actual content, not just the abstract. This transforms the quality of everything that follows.</p>
+  </div>
+  <div class="prompt-block">I've uploaded <span class="hl-biblio">3 papers</span> that are central to my project.
+
+<span class="hl-build">Read them and tell me:
+1. What is the consensus across these papers?
+2. Where do they disagree?
+3. What gap do they collectively leave open that my project addresses?</span>
+
+<span class="hl-structure">Be specific. Cite by author name when referencing a claim.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color biblio"></div>
+      <div class="anno-text"><strong>"3 papers that are central"</strong> tells the AI these aren't random; they matter. It will read them carefully rather than skimming.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color build"></div>
+      <div class="anno-text"><strong>Three specific questions</strong> force synthesis, not summary. You're asking the AI to do the intellectual work of identifying consensus, disagreement, and gaps.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color structure"></div>
+      <div class="anno-text"><strong>"Cite by author name"</strong> makes the output verifiable. You can check whether the AI is attributing claims correctly.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="break-card">Break &bull; 10 minutes</div>
+
+<!-- ====== PHASE 3 ====== -->
+<div class="phase-bar build">
+  <div class="phase-num">Phase 3</div>
+  <div class="phase-title">Synthesis</div>
+  <div class="phase-time">30 min</div>
+</div>
+<div class="phase-desc">Use your accumulated context (brief + papers) to build the intellectual foundation for a proposal.</div>
+
+<!-- Step 3.1 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge build">Step 1</div>
+    <div class="step-title">State of the Field</div>
+  </div>
+  <div class="prompt-block"><span class="hl-context">Using my research context</span> <span class="hl-biblio">and the papers I've uploaded,</span>
+
+<span class="hl-build">draft a "Background and Significance" section</span> for a grant proposal.
+
+<span class="hl-structure">Structure it as:
+1. The problem and why it matters (2-3 paragraphs)
+2. What the field has established so far (2-3 paragraphs)
+3. The critical gap my project addresses (1 paragraph)
+4. Why my approach is the right one to fill this gap (1 paragraph)</span>
+
+<span class="hl-constraint">Use only information from the papers I provided and my context brief. Do not introduce claims I cannot support. Academic register, not promotional.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color context"></div>
+      <div class="anno-text"><strong>"Using my research context"</strong> keeps the AI grounded in your specific framing, not a generic version of your topic.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color build"></div>
+      <div class="anno-text"><strong>"Background and Significance"</strong> is the actual section name in an ISF proposal. The AI knows this format.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color structure"></div>
+      <div class="anno-text"><strong>Four numbered sub-sections</strong> give the AI a skeleton. Without structure, you get a meandering essay. With it, you get a draft that maps onto what reviewers expect.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>"Only information from the papers I provided"</strong> prevents hallucinated citations. <strong>"Not promotional"</strong> prevents hype. These are the guardrails that make the output trustworthy.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 3.2 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge build">Step 2</div>
+    <div class="step-title">Iterate and Refine</div>
+  </div>
+  <div class="annotations">
+    <p>Read the draft. Something will be wrong, overstated, or missing. That's the point. Now you iterate:</p>
+  </div>
+  <div class="prompt-block"><span class="hl-constraint">The connection between [X] and [Y] is overstated. Soften the causal language.</span>
+
+<span class="hl-build">Add a paragraph on [Z], which is missing from the current draft.</span>
+
+<span class="hl-context">Remember that my approach is [specific detail from your context brief]. Make sure this comes through more clearly in the gap analysis.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>Specific corrections</strong> teach the AI your standards. Vague feedback ("make it better") produces vague revisions. Pointed feedback produces precise improvements.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color context"></div>
+      <div class="anno-text"><strong>"Remember that my approach is..."</strong> pulls the AI back to your context brief when it drifts. This is the most common use of iteration: course correction.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PHASE 4 ====== -->
+<div class="phase-bar proposal">
+  <div class="phase-num">Phase 4</div>
+  <div class="phase-title">Proposal Generation</div>
+  <div class="phase-time">30 min</div>
+</div>
+<div class="phase-desc">Generate an ISF-structured proposal section using everything you've built.</div>
+
+<!-- Step 4.1 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge proposal">Step 1</div>
+    <div class="step-title">Research Plan</div>
+  </div>
+  <div class="prompt-block"><span class="hl-context">Using my context brief, the literature we reviewed, and the background section we just drafted,</span>
+
+<span class="hl-proposal">draft the "Research Plan" section of an ISF grant proposal</span> covering my <span class="hl-context">specific aims.</span>
+
+<span class="hl-structure">For each aim, include:
+- Rationale (why this aim is necessary)
+- Methodology (how you will do it)
+- Expected results (what success looks like)
+- Potential pitfalls and alternatives</span>
+
+<span class="hl-constraint">This is a proof-of-concept study. Do not overclaim. Acknowledge limitations honestly. Use the terminology from my context brief consistently.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color context"></div>
+      <div class="anno-text"><strong>"Using my context brief, the literature, and the background"</strong> chains together everything accumulated in the session. Each phase builds on the last.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color proposal"></div>
+      <div class="anno-text"><strong>"Research Plan section of an ISF grant proposal"</strong> tells the AI the exact format. It will match ISF conventions rather than producing a generic plan.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color structure"></div>
+      <div class="anno-text"><strong>Four sub-sections per aim</strong> is what reviewers expect to see. The AI knows this structure but won't use it unless you ask.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>"Acknowledge limitations honestly"</strong> prevents the AI from writing an overconfident plan. Reviewers trust proposals that show awareness of what could go wrong.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 4.2 -->
+<div class="prompt-card">
+  <div class="prompt-card-header">
+    <div class="step-badge proposal">Step 2</div>
+    <div class="step-title">Reviewer Simulation</div>
+  </div>
+  <div class="prompt-block"><span class="hl-proposal">Act as a critical ISF grant reviewer</span> in my field.
+
+<span class="hl-build">Read the research plan I just generated and identify:
+1. The three weakest points a reviewer would attack
+2. Any logical gaps between aims
+3. Claims that are not adequately supported by the literature cited</span>
+
+<span class="hl-constraint">Be harsh but constructive. I would rather fix problems now than discover them in review.</span></div>
+  <div class="annotations">
+    <h4>Why This Works</h4>
+    <div class="anno-row">
+      <div class="anno-color proposal"></div>
+      <div class="anno-text"><strong>"Act as a critical ISF reviewer"</strong> puts the AI in adversarial mode. It will look for problems instead of validating your work.</div>
+    </div>
+    <div class="anno-row">
+      <div class="anno-color constraint"></div>
+      <div class="anno-text"><strong>"Be harsh but constructive"</strong> gives the AI permission to be honest. By default, AI tools are sycophantic. This prompt counteracts that tendency.</div>
+    </div>
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-label">What You Leave With</div>
+  <strong>A primed AI project</strong> with your research context, a system prompt, bibliography, a background draft, and a research plan draft. This is a working foundation you can continue developing at home. Every new conversation in the project picks up where you left off.
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: VERIFICATION CHECKLIST                              -->
+<!-- ============================================================ -->
+<div class="section-divider" style="background: #fef2f2; margin-top: 24px;">
+  <div class="sec-num">2</div>
+  <h2 style="margin-bottom: 0;">Verification Checklist</h2>
+</div>
+<p style="font-size: 12px; color: #4a6040; margin-bottom: 12px;">How to authenticate AI-suggested bibliography</p>
+
+<div class="intro-red">
+  <div class="intro-label">Why This Matters</div>
+  AI tools fabricate citations. Not always, not even often with current models, but often enough that a single unverified reference in a grant proposal or publication can destroy your credibility. The solution is not to avoid AI for literature discovery. It is to build a verification habit that becomes automatic. This checklist is the method.
+</div>
+
+<!-- Gate 1 -->
+<div class="gate">
+  <div class="gate-header">
+    <div class="gate-num">1</div>
+    <div class="gate-title">Does the DOI resolve?</div>
+  </div>
+  <div class="gate-body">
+    <div class="gate-action">Click the DOI link the AI provided. Or paste it into doi.org.</div>
+    <div class="gate-how">A DOI (Digital Object Identifier) is a permanent link to a published work. If the AI gives you one, it should take you to the publisher's page for that paper.</div>
+    <div class="outcome-row">
+      <div class="outcome pass">
+        <div class="outcome-label">Pass</div>
+        You land on a publisher page (Elsevier, Springer, Wiley, JSTOR, etc.) showing the paper. Proceed to Gate 2.
+      </div>
+      <div class="outcome fail">
+        <div class="outcome-label">Fail</div>
+        404 error, "DOI not found," or you land on a completely different paper. The citation may be fabricated.
+      </div>
+    </div>
+    <div class="gotcha"><strong>Common AI behavior:</strong> Inventing a DOI that looks structurally correct (10.xxxx/xxxx) but doesn't point anywhere. Also: giving the DOI of a real paper but attributing it to the wrong authors or title.</div>
+  </div>
+</div>
+
+<div class="connector">&#9660;</div>
+
+<!-- Gate 2 -->
+<div class="gate">
+  <div class="gate-header">
+    <div class="gate-num">2</div>
+    <div class="gate-title">Does the title match?</div>
+  </div>
+  <div class="gate-body">
+    <div class="gate-action">Compare the title the AI gave you with the title on the publisher's page.</div>
+    <div class="gate-how">Read both carefully. Don't skim. AI sometimes gets titles 90% right but changes a key word, which can mean the paper is about something subtly different.</div>
+    <div class="outcome-row">
+      <div class="outcome pass">
+        <div class="outcome-label">Pass</div>
+        Title matches exactly or differs only in minor punctuation. Proceed to Gate 3.
+      </div>
+      <div class="outcome fail">
+        <div class="outcome-label">Fail</div>
+        Title is different, even partially. The AI may have merged two real papers into one fictional citation.
+      </div>
+    </div>
+    <div class="gotcha"><strong>Common AI behavior:</strong> "Approximate titles" that sound like the real paper but aren't. Also: correct title but wrong year, which may mean you're looking at a different edition or a different paper entirely.</div>
+  </div>
+</div>
+
+<div class="connector">&#9660;</div>
+
+<!-- Gate 3 -->
+<div class="gate">
+  <div class="gate-header">
+    <div class="gate-num">3</div>
+    <div class="gate-title">Do the authors match?</div>
+  </div>
+  <div class="gate-body">
+    <div class="gate-action">Check that the authors the AI listed are the actual authors on the publisher's page.</div>
+    <div class="gate-how">Pay attention to first authors especially. AI sometimes assigns real papers to the wrong scholar, or adds/removes co-authors.</div>
+    <div class="outcome-row">
+      <div class="outcome pass">
+        <div class="outcome-label">Pass</div>
+        Authors match (order and names). Proceed to Gate 4.
+      </div>
+      <div class="outcome fail">
+        <div class="outcome-label">Fail</div>
+        Wrong authors, missing authors, or authors from a different paper. The citation is unreliable even if the paper itself is real.
+      </div>
+    </div>
+    <div class="gotcha"><strong>Common AI behavior:</strong> Confidently attributing a well-known finding to the wrong researcher. Also: inventing a plausible author name that doesn't exist. Google Scholar is your friend here.</div>
+  </div>
+</div>
+
+<div class="connector">&#9660;</div>
+
+<!-- Gate 4 -->
+<div class="gate">
+  <div class="gate-header">
+    <div class="gate-num">4</div>
+    <div class="gate-title">Does the abstract support the AI's claim?</div>
+  </div>
+  <div class="gate-body">
+    <div class="gate-action">Read the abstract on the publisher's page. Compare it to what the AI said the paper contributes.</div>
+    <div class="gate-how">This is the most important gate. The paper can be real, the title correct, the authors right, and the AI can still misrepresent what the paper actually argues. This is not hallucination; it's misattribution, and it's harder to catch.</div>
+    <div class="outcome-row">
+      <div class="outcome pass">
+        <div class="outcome-label">Pass</div>
+        The abstract confirms the AI's characterization of the paper's contribution. Proceed to Gate 5.
+      </div>
+      <div class="outcome fail">
+        <div class="outcome-label">Fail</div>
+        The paper exists but argues something different from what the AI claimed. Do not cite it for the claim the AI attributed to it.
+      </div>
+    </div>
+    <div class="gotcha"><strong>Common AI behavior:</strong> Correctly identifying a paper as relevant to your topic but mischaracterizing its conclusion. Also: presenting a paper's secondary finding as its main argument, or importing a claim from one paper into the description of another.</div>
+  </div>
+</div>
+
+<div class="connector">&#9660;</div>
+
+<!-- Gate 5 -->
+<div class="gate">
+  <div class="gate-header">
+    <div class="gate-num">5</div>
+    <div class="gate-title">Can you access the full text?</div>
+  </div>
+  <div class="gate-body">
+    <div class="gate-action">Try to download the PDF through your university library or database access.</div>
+    <div class="gate-how">If you plan to cite a paper in a proposal, you need to have read it, not just the abstract. This gate is about research integrity: you should never cite a paper you haven't read.</div>
+    <div class="outcome-row">
+      <div class="outcome pass">
+        <div class="outcome-label">Pass</div>
+        You have the full text. Download it and upload it to your AI project for context building.
+      </div>
+      <div class="outcome fail">
+        <div class="outcome-label">Not a Fail, But a Flag</div>
+        If you can't access it, don't cite it yet. Bookmark it, try interlibrary loan, or check if the author posted a preprint. Do not rely on the AI's summary of a paper you haven't read.
+      </div>
+    </div>
+    <div class="gotcha"><strong>Reminder:</strong> University database access (through the BIU library portal) covers most major publishers. If a paper is behind a paywall you can't reach, check the author's personal page, ResearchGate, or institutional repository for a free version.</div>
+  </div>
+</div>
+
+<!-- Summary -->
+<div class="summary-card">
+  <h3>After All Five Gates</h3>
+  <div class="summary-grid">
+    <div class="summary-item s-pass">
+      <div class="s-label">All Pass</div>
+      <div class="s-text">Citation is verified. Safe to use. Upload the PDF to your project for deeper work.</div>
+    </div>
+    <div class="summary-item s-warn">
+      <div class="s-label">Gate 4 Fails</div>
+      <div class="s-text">Paper is real but AI mischaracterized it. Re-read the abstract. You may still want the paper, just not for the reason the AI suggested.</div>
+    </div>
+    <div class="summary-item s-fail">
+      <div class="s-label">Gates 1-3 Fail</div>
+      <div class="s-text">Citation is fabricated or corrupted. Discard it. Ask the AI: "This citation appears to be incorrect. Can you verify it or suggest an alternative?"</div>
+    </div>
+  </div>
+</div>
+
+<div class="rule">
+  <div class="rule-label">The Rule</div>
+  <div class="rule-text">If you haven't clicked the DOI, read the abstract,<br>and confirmed the claim, you haven't verified it.<br>Everything else is trust, and trust is not a method.</div>
+</div>
+
+<!-- Bonus gate -->
+<div class="gate" style="margin-top: 14px;">
+  <div class="gate-header">
+    <div class="gate-num" style="background: #d97706;">+</div>
+    <div class="gate-title">Bonus: Verifying Specific Claims Within a Paper</div>
+  </div>
+  <div class="gate-body">
+    <div class="gate-how">Once a paper passes all five gates and you've uploaded it to your AI project, you can ask the AI to extract specific claims: statistics, dates, direct quotes. But these need verification too.</div>
+    <div class="gate-action">Ask: "Where in the paper do you find this claim? Give me the page number and a direct quote."</div>
+    <div class="gate-how">Then open the PDF and Ctrl+F (or Cmd+F) the quote. If it's there, you've confirmed it. If it's not, the AI paraphrased or invented it.</div>
+    <div class="gotcha"><strong>Why this matters for proposals:</strong> A grant reviewer who checks your citations and finds a misattributed claim will question everything else in the proposal. One bad citation costs more than the time it takes to verify ten good ones.</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: ISF PROPOSAL STRUCTURE                              -->
+<!-- ============================================================ -->
+<div class="section-divider" style="background: #f5f3ff; margin-top: 24px;">
+  <div class="sec-num">3</div>
+  <h2 style="margin-bottom: 0;">ISF Proposal Structure</h2>
+</div>
+<p style="font-size: 12px; color: #4a6040; margin-bottom: 12px;">Quick reference for the Personal Research Grant (New PI Track)</p>
+
+<div class="intro-blue">
+  <div class="intro-label">How to Use This Page</div>
+  This is a cheat sheet, not a replacement for the official ISF guidelines. Each card below covers one section of the proposal: what goes in it, the page or word limit, and what reviewers actually look for. Keep the full guidelines open alongside this page when writing. The proposal is submitted in English via the ISF online system.
+</div>
+
+<!-- Key Dates -->
+<div class="dates-banner">
+  <h3>Key Deadlines</h3>
+  <div class="dates-grid">
+    <div class="date-item">
+      <div class="d-label">Registration</div>
+      <div class="d-value">29 Oct 2026, 13:00</div>
+      <div class="d-note">Must register before submitting</div>
+    </div>
+    <div class="date-item">
+      <div class="d-label">Submission</div>
+      <div class="d-value">12 Nov 2026, 13:00</div>
+      <div class="d-note">After institutional approval</div>
+    </div>
+    <div class="date-item">
+      <div class="d-label">Funding Starts</div>
+      <div class="d-value">1 Oct 2027</div>
+      <div class="d-note">1-5 year grants</div>
+    </div>
+  </div>
+</div>
+
+<!-- ISF Section 1 -->
+<div class="isf-card">
+  <div class="isf-card-header">
+    <div class="isf-num">1</div>
+    <div class="isf-title">Scientific Abstract</div>
+  </div>
+  <div class="isf-body">
+    <div class="limit-badge">Max 1 page (1 MB PDF)</div>
+    <ul>
+      <li>State the research question, approach, and expected significance in accessible language</li>
+      <li>Mention all specific aims; no citations</li>
+      <li>This is the first thing reviewers read and the basis for committee assignment</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> Can a non-specialist on the committee understand what you propose and why it matters? If the abstract is vague, your proposal may be routed to the wrong sub-committee.</div>
+  </div>
+</div>
+
+<!-- ISF Section 2 -->
+<div class="isf-card">
+  <div class="isf-card-header">
+    <div class="isf-num">2</div>
+    <div class="isf-title">Research Program</div>
+  </div>
+  <div class="isf-body">
+    <div class="limit-badge">Max 15 pages A4 + up to 5 pages bibliography (PDF, max 16 MB)</div>
+    <p style="font-size:12px; color:#4a6040; margin-bottom:10px;">This is the core of the proposal. It is one PDF file containing the subsections below. Figures and illustrations count toward the 15-page limit. The research plan must be integrative: one coherent project, not a collection of unrelated parts.</p>
+
+    <div class="isf-sub-grid">
+      <!-- 2a -->
+      <div class="isf-sub-card">
+        <div class="isf-sub-header">
+          <div class="isf-sub-num">2a</div>
+          <div class="isf-sub-title">Scientific Background</div>
+        </div>
+        <div class="isf-sub-body">
+          <ul>
+            <li>Review the state of the field and identify the gap your project addresses</li>
+            <li>For humanities/social sciences: frame the broader program the research belongs to</li>
+            <li>Position your preliminary data or prior work strategically</li>
+          </ul>
+          <div class="reviewer-tip"><strong>Reviewer lens:</strong> Does the background build a clear narrative toward a gap, or is it a disconnected literature survey? The gap should make the aims feel inevitable.</div>
+        </div>
+      </div>
+
+      <!-- 2b -->
+      <div class="isf-sub-card">
+        <div class="isf-sub-header">
+          <div class="isf-sub-num">2b</div>
+          <div class="isf-sub-title">Objectives &amp; Significance</div>
+        </div>
+        <div class="isf-sub-body">
+          <ul>
+            <li>State the research objectives and expected significance clearly</li>
+            <li>Explain what success looks like and why it matters to the field</li>
+            <li>Connect objectives to the gap identified in the background</li>
+          </ul>
+          <div class="reviewer-tip"><strong>Reviewer lens:</strong> Are the objectives concrete and testable, or vaguely aspirational? Reviewers want to see what counts as a result.</div>
+        </div>
+      </div>
+
+      <!-- 2c -->
+      <div class="isf-sub-card">
+        <div class="isf-sub-header">
+          <div class="isf-sub-num">2c</div>
+          <div class="isf-sub-title">Detailed Research Plan</div>
+        </div>
+        <div class="isf-sub-body">
+          <ul>
+            <li>Working hypothesis, research design, and methods</li>
+            <li>Preliminary results (if relevant); conditions and resources needed</li>
+            <li>Expected results, potential pitfalls, and alternative approaches</li>
+            <li>Include required permits/approvals for the research</li>
+          </ul>
+          <div class="reviewer-tip"><strong>Reviewer lens:</strong> Is the methodology specific enough to be feasible? Vague methods ("we will analyze...") without concrete protocols raise red flags. Include contingency plans.</div>
+        </div>
+      </div>
+
+      <!-- 2d -->
+      <div class="isf-sub-card">
+        <div class="isf-sub-header">
+          <div class="isf-sub-num">2d</div>
+          <div class="isf-sub-title">Bibliography</div>
+        </div>
+        <div class="isf-sub-body">
+          <ul>
+            <li>Up to 5 printed pages (line spacing 1.0); full citation for every reference</li>
+            <li>Include title, all authors, and the specific publication venue for each item</li>
+            <li>Verify every reference; a fabricated citation can disqualify the proposal</li>
+          </ul>
+          <div class="reviewer-tip"><strong>Reviewer lens:</strong> Number your bibliography items. Missing or inaccurate references undermine trust in the entire proposal. If using AI for literature discovery, run every citation through the verification checklist.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ISF Section 3 -->
+<div class="isf-card">
+  <div class="isf-card-header">
+    <div class="isf-num">3</div>
+    <div class="isf-title">Bibliography with Stars</div>
+  </div>
+  <div class="isf-body">
+    <div class="limit-badge">Separate file</div>
+    <ul>
+      <li>A copy of the bibliography with starred (*) publications most relevant to the proposal topic</li>
+      <li>Must include full publication titles and all authors' names</li>
+      <li>Serves as a committee tool: helps identify reviewers and assess alignment</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> The starred items signal which intellectual conversation you see yourself in. Choose them carefully; they often guide reviewer assignment.</div>
+  </div>
+</div>
+
+<!-- ISF Section 4 -->
+<div class="isf-card">
+  <div class="isf-card-header">
+    <div class="isf-num">4</div>
+    <div class="isf-title">Time Schedule</div>
+  </div>
+  <div class="isf-body">
+    <div class="limit-badge">Part of the research program</div>
+    <ul>
+      <li>Detail the stages of the research in a table; include verbal explanatory notes</li>
+      <li>Must cover the full grant period (1-5 years)</li>
+      <li>For descriptive/non-linear research, note that timelines are approximate but still include one</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> Is the timeline realistic given the scope? Overly ambitious year-one plans or empty later years suggest poor planning.</div>
+  </div>
+</div>
+
+<!-- ISF Section 5 -->
+<div class="isf-card">
+  <div class="isf-card-header">
+    <div class="isf-num">5</div>
+    <div class="isf-title">Budget</div>
+  </div>
+  <div class="isf-body">
+    <div class="limit-badge">In NIS; includes dedicated equipment section</div>
+    <ul>
+      <li><strong>Personnel:</strong> Scholarships or salary for research team; PI cannot draw salary from the grant</li>
+      <li><strong>Tools &amp; materials:</strong> Research consumables, professional literature, journal subscriptions (up to 15,000 NIS/year)</li>
+      <li><strong>Services:</strong> Lab services, consulting, payments for data processing (section 3.14 rules apply)</li>
+      <li><strong>Other expenses:</strong> Up to 6,000 NIS/year for student travel; no PI travel/conference costs</li>
+      <li><strong>Computers:</strong> Max 1 computer + 1 laptop/tablet per PI; for office/lab use, not home</li>
+      <li><strong>Equipment:</strong> Up to 120,000 NIS for dedicated research equipment (not counted toward the annual budget cap)</li>
+      <li><strong>Overhead:</strong> 17% automatically added on top of total allocation</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> Every line item needs justification. Budgets that don't match the described activities, or that look inflated, signal carelessness. The ISF can reduce or cut the grant if the budget doesn't align.</div>
+  </div>
+</div>
+
+<!-- ISF Section 6 -->
+<div class="isf-card">
+  <div class="isf-card-header">
+    <div class="isf-num">6</div>
+    <div class="isf-title">CV, Recent Grants &amp; Investigators</div>
+  </div>
+  <div class="isf-body">
+    <div class="limit-badge">CV: max 1 page per PI; Recent Grants: max 2 pages (1 MB)</div>
+    <ul>
+      <li><strong>CV:</strong> List Ph.D. and postdoctoral mentor for each PI; keep it concise</li>
+      <li><strong>Recent ISF Grants:</strong> Report on any ISF-funded project in the last ~10 years; include outcomes, publications, and whether the grant achieved its goals</li>
+      <li>If resubmitting, explain changes from the previous submission (up to 5 pages); do not mention the previous application number</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> For resubmissions, reviewers check whether you addressed prior feedback seriously. A resubmission that ignores previous critiques will not fare better the second time.</div>
+  </div>
+</div>
+
+<!-- ISF Section 7 -->
+<div class="isf-card">
+  <div class="isf-card-header">
+    <div class="isf-num">7</div>
+    <div class="isf-title">Appendix &amp; Collaborators</div>
+  </div>
+  <div class="isf-body">
+    <div class="limit-badge">Collaborator letters: max 2 pages each (readable font)</div>
+    <ul>
+      <li>List names of all collaborating researchers, shared projects, and co-publications from the last 5 years</li>
+      <li>Each collaborator letter must describe the collaboration's scope and the collaborator's institution</li>
+      <li>Letters should not read like generic endorsements; specify what the collaborator contributes</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> Collaboration letters that are vague or overly enthusiastic without specifics add nothing. A concrete letter that says "I will provide X method/resource for Y aim" is worth ten times a general endorsement.</div>
+  </div>
+</div>
+
+<!-- ISF Section 8 -->
+<div class="isf-card">
+  <div class="isf-card-header">
+    <div class="isf-num">8</div>
+    <div class="isf-title">Declarations</div>
+  </div>
+  <div class="isf-body">
+    <div class="limit-badge">Required forms in the online system</div>
+    <ul>
+      <li><strong>Parallel submission:</strong> Disclose any overlapping active grants or pending proposals (in Israel or abroad)</li>
+      <li><strong>Industrial/commercial funding:</strong> Declare if the research is similar to commercially funded work</li>
+      <li><strong>Family ties:</strong> Declare close family ties with ISF staff or governance members</li>
+      <li><strong>Basic research declaration:</strong> Confirm this is fundamental research conducted in your category</li>
+      <li><strong>LLM use:</strong> If you used a large language model in writing, disclose this; you remain solely responsible for all content</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> Missing or incomplete declarations can delay or disqualify your proposal. The LLM disclosure is new; be transparent about AI assistance and ensure all content is verified.</div>
+  </div>
+</div>
+
+<!-- ISF Section 9 -->
+<div class="isf-card">
+  <div class="isf-card-header">
+    <div class="isf-num">9</div>
+    <div class="isf-title">Authorities' Certificates</div>
+  </div>
+  <div class="isf-body">
+    <div class="limit-badge">Institutional approval required before submission</div>
+    <ul>
+      <li>Your Research Authority must approve the proposal before you can submit</li>
+      <li>Ethics, animal, and human subject approvals are needed at the proposal stage (not just at funding)</li>
+      <li>Budget is released only after all required certificates are provided to the ISF</li>
+    </ul>
+    <div class="reviewer-tip"><strong>Reviewer lens:</strong> Check your institution's internal deadline; it is usually earlier than the ISF deadline. Late institutional approval means no submission.</div>
+  </div>
+</div>
+
+<!-- Formatting Rules -->
+<div class="format-note">
+  <h3>Formatting Rules</h3>
+  <ul>
+    <li>All attachments must be uploaded as <strong>PDF only</strong></li>
+    <li>Research Program: A4, minimum 2 cm margins on all sides, minimum 11pt font (1.5 line spacing recommended)</li>
+    <li>Figures and images must be high-resolution and clearly readable</li>
+    <li>Entire proposal is in <strong>English</strong>; avoid Hebrew text in the body (exceptions: keywords in the registration form)</li>
+    <li>If requesting a Hebrew-language proposal (humanities), submit a brief abstract in Hebrew and get prior ISF approval</li>
+    <li>Maximum 4 primary investigators per proposal; one PI can only appear as primary on one ISF proposal at a time</li>
+  </ul>
+</div>
+
+<div class="rule">
+  <div class="rule-label">The Principle</div>
+  <div class="rule-text">The sole criterion for evaluation is scientific excellence.<br>Everything in your proposal should serve that, and nothing else.</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: QUICK REFERENCE                                     -->
+<!-- ============================================================ -->
+<div class="section-divider" style="background: #eef8fc; margin-top: 24px;">
+  <div class="sec-num">4</div>
+  <h2 style="margin-bottom: 0;">Quick Reference: The Five Principles</h2>
+</div>
+
+<div class="principles-card">
+  <div class="principle-row">
+    <div class="anno-color context"></div>
+    <div><strong>1. Context first.</strong> The AI is only as good as the context you give it. Generic input produces generic output.</div>
+  </div>
+  <div class="principle-row">
+    <div class="anno-color structure"></div>
+    <div><strong>2. Structure your requests.</strong> Tell the AI what format you want. Numbered lists, specific categories, word limits. Unstructured prompts produce unstructured output.</div>
+  </div>
+  <div class="principle-row">
+    <div class="anno-color constraint"></div>
+    <div><strong>3. Set constraints.</strong> Tell the AI what NOT to do. Without guardrails, it will overclaim, hallucinate, and produce text that sounds confident but misrepresents your position.</div>
+  </div>
+  <div class="principle-row">
+    <div class="anno-color build"></div>
+    <div><strong>4. Build iteratively.</strong> Each phase feeds the next. Don't start from scratch each time. Let context accumulate.</div>
+  </div>
+  <div class="principle-row">
+    <div class="anno-color constraint"></div>
+    <div><strong>5. Verify everything.</strong> AI tools fabricate citations, overstate claims, and present uncertainty as fact. Your domain expertise is the quality filter.</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- QR CODE PAGE                                                   -->
+<!-- ============================================================ -->
+<div class="qr-page">
+  <div class="qr-label">All workshop materials available online:</div>
+  <img src="qrcode.png" alt="QR Code">
+  <div class="qr-url">chlodomer.github.io/ai-research-masterclass</div>
+</div>
+
+</body>
+</html>
