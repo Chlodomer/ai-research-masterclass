@@ -6,9 +6,9 @@ Upload this file to your AI project so the AI knows the ISF format when helping 
 
 ## Key Deadlines
 
-- **Registration:** 29 Oct 2025, 13:00 (must register before submitting)
-- **Submission:** 12 Nov 2025, 13:00 (after institutional approval)
-- **Funding starts:** 1 Oct 2026 (1-5 year grants)
+- **Registration:** 29 Oct 2026, 13:00 (must register before submitting)
+- **Submission:** 12 Nov 2026, 13:00 (after institutional approval)
+- **Funding starts:** 1 Oct 2027 (1-5 year grants)
 
 ---
 
