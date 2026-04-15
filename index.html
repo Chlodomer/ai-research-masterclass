@@ -115,6 +115,33 @@
     color: var(--green);
   }
 
+  /* Video section */
+  .video-section {
+    padding: 32px 36px;
+    background: var(--card);
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .video-section h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .video-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+    background: #002e1a;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+  .video-wrap video {
+    width: 100%;
+    display: block;
+  }
+
   /* Resource cards */
   .resources {
     padding: 32px 36px;
@@ -286,6 +313,16 @@
     <div class="info-item"><strong>Date:</strong> April 16, 2026</div>
     <div class="info-item"><strong>Duration:</strong> 2.5 hours</div>
     <div class="info-item"><strong>Goal:</strong> From research idea to proposal draft</div>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="video-section">
+    <h2>Watch: Workshop Overview</h2>
+    <div class="video-wrap">
+      <video controls preload="metadata" poster="">
+        <source src="workshop-video.mp4" type="video/mp4">
+      </video>
+    </div>
   </div>
 
   <!-- RESOURCES -->
