@@ -117,11 +117,12 @@
 
   /* Video section */
   .video-section {
-    padding: 32px 36px;
+    padding: 24px 36px 28px;
     background: var(--card);
     border-left: 1px solid var(--border);
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
+    text-align: center;
   }
   .video-section h2 {
     font-size: 13px;
@@ -129,13 +130,16 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
+    text-align: left;
   }
   .video-wrap {
     border-radius: 10px;
     overflow: hidden;
     background: #002e1a;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    box-shadow: 0 6px 24px -8px rgba(0,0,0,0.18);
+    max-width: 560px;
+    margin: 0 auto;
   }
   .video-wrap video {
     width: 100%;
@@ -167,13 +171,13 @@
   .resource-card {
     display: flex;
     flex-direction: column;
-    background: var(--bg);
+    background: linear-gradient(165deg, #ffffff 0%, #f5faf0 60%, #eef6e6 100%);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 22px 20px;
     text-decoration: none;
     color: var(--text);
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s, background 0.3s;
     position: relative;
     overflow: hidden;
   }
@@ -181,11 +185,16 @@
     border-color: var(--green);
     box-shadow: 0 4px 16px rgba(0,65,40,0.08);
     transform: translateY(-2px);
+    background: linear-gradient(165deg, #ffffff 0%, #eef6e6 100%);
   }
 
   .resource-card .card-icon {
-    font-size: 32px;
-    margin-bottom: 12px;
+    width: 32px;
+    height: 32px;
+    color: var(--green);
+    margin-bottom: 14px;
+    display: block;
+    stroke-width: 1.5;
   }
   .resource-card .card-title {
     font-size: 17px;
@@ -334,42 +343,42 @@
     <div class="resource-grid">
 
       <a class="resource-card" href="context-brief.html">
-        <div class="card-icon">📝</div>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg>
         <div class="card-title">Context Brief</div>
         <div class="card-desc">Interactive form. Translate your research expertise into structured context the AI can work with. Fill it out, copy the output, paste into your AI tool.</div>
         <div class="card-tag tag-interactive">Interactive Form</div>
       </a>
 
       <a class="resource-card" href="workshop-guide.html">
-        <div class="card-icon">📘</div>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="14" height="14" rx="2"/><path d="M7 7V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-2"/><line x1="7" y1="12" x2="13" y2="12"/><line x1="7" y1="16" x2="11" y2="16"/></svg>
         <div class="card-title">Workshop Guide</div>
         <div class="card-desc">All prompts for every phase, color-coded and annotated. Each prompt explains why it works and what each part does.</div>
         <div class="card-tag tag-guide">Prompts + Annotations</div>
       </a>
 
       <a class="resource-card" href="verification.html">
-        <div class="card-icon">🔍</div>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v5c0 4.5-3.2 8.5-8 10-4.8-1.5-8-5.5-8-10V6z"/><path d="M8.5 12l2.5 2.5L15.5 10"/></svg>
         <div class="card-title">Verification Checklist</div>
         <div class="card-desc">Five-gate authentication flow for AI-suggested bibliography. How to confirm a citation is real before you use it.</div>
         <div class="card-tag tag-reference">Ref</div>
       </a>
 
       <a class="resource-card" href="isf-reference.html">
-        <div class="card-icon">📋</div>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="5" y1="8" x2="19" y2="8"/><line x1="5" y1="13" x2="19" y2="13"/><line x1="5" y1="17" x2="19" y2="17"/></svg>
         <div class="card-title">ISF Proposal Structure</div>
         <div class="card-desc">One-page reference: every section of an ISF proposal, what goes where, page limits, and what reviewers look for.</div>
         <div class="card-tag tag-reference">Ref</div>
       </a>
 
       <a class="resource-card" href="packet.html">
-        <div class="card-icon">📦</div>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>
         <div class="card-title">Workshop Packet (PDF)</div>
         <div class="card-desc">All materials in one PDF: prompts, verification checklist, ISF structure, quick reference. Download and keep.</div>
         <div class="card-tag tag-reference">Download</div>
       </a>
 
       <a class="resource-card" href="demo-filled.html">
-        <div class="card-icon">🧪</div>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
         <div class="card-title">Demo: Filled Example</div>
         <div class="card-desc">See what a completed context brief looks like, pre-filled with a sample immunology project. Shows the output you'll generate.</div>
         <div class="card-tag tag-demo">Demo</div>
