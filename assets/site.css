@@ -1,0 +1,167 @@
+/* AI for Research Master Class — site-wide polish
+   Loads on every page AFTER each page's inline <style> so cascade wins
+   go to these rules at equal specificity. Keeps the existing BIU design
+   intact; adds movement, hover reactivity, and focus affordances. */
+
+:root {
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --reveal-distance: 14px;
+  --reveal-duration: 620ms;
+  --polish-green: #00493d;
+  --polish-blue: #78CDE6;
+}
+
+html { scroll-behavior: smooth; }
+
+/* ---------- Scroll-progress bar ---------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--polish-green), var(--polish-blue));
+  z-index: 9999;
+  pointer-events: none;
+  transition: width 80ms linear;
+}
+
+/* ---------- Scroll reveal ----------
+   Gated behind html.js so content stays visible if JS is blocked. */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity var(--reveal-duration) var(--ease-out),
+    transform var(--reveal-duration) var(--ease-out);
+  will-change: opacity, transform;
+}
+html.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Hover polish for content cards ----------
+   A sky-blue accent line grows from the top-left on hover, plus a
+   softer elevation. Covers every card class used across the site. */
+html.js .section,
+html.js .section-card,
+html.js .prompt-card,
+html.js .gate,
+html.js .info-box,
+html.js .phase,
+html.js .intro,
+html.js .dates-banner,
+html.js .video-section,
+html.js .overview,
+html.js .contents,
+html.js .download-section,
+html.js .download-wrap {
+  position: relative;
+  transition:
+    opacity var(--reveal-duration) var(--ease-out),
+    transform var(--reveal-duration) var(--ease-out),
+    box-shadow 260ms var(--ease-out),
+    border-color 260ms var(--ease-out);
+}
+
+html.js .section::before,
+html.js .section-card::before,
+html.js .prompt-card::before,
+html.js .gate::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--polish-green), var(--polish-blue));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 340ms var(--ease-out);
+  pointer-events: none;
+  border-top-left-radius: inherit;
+  border-bottom-left-radius: inherit;
+  z-index: 1;
+}
+html.js .section:hover::before,
+html.js .section-card:hover::before,
+html.js .prompt-card:hover::before,
+html.js .gate:hover::before {
+  transform: scaleY(1);
+}
+html.js .section:hover,
+html.js .section-card:hover,
+html.js .prompt-card:hover,
+html.js .gate:hover {
+  box-shadow: 0 10px 36px -16px rgba(0, 73, 61, 0.22);
+}
+
+/* Index page resource cards already lift on hover; deepen the shadow
+   and tighten the transition for a more polished feel. */
+html.js .resource-card {
+  transition:
+    border-color 240ms var(--ease-out),
+    box-shadow 260ms var(--ease-out),
+    transform 220ms var(--ease-out);
+}
+html.js .resource-card:hover {
+  box-shadow: 0 14px 40px -16px rgba(0, 73, 61, 0.28);
+  transform: translateY(-3px);
+}
+
+/* ---------- Button polish ---------- */
+html.js .btn,
+html.js .button-primary,
+html.js .download-btn {
+  transition:
+    transform 160ms var(--ease-out),
+    box-shadow 280ms var(--ease-out),
+    background 240ms var(--ease-out),
+    color 240ms var(--ease-out);
+}
+html.js .btn:hover,
+html.js .button-primary:hover,
+html.js .download-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px -16px rgba(0, 73, 61, 0.45);
+}
+html.js .btn:active,
+html.js .button-primary:active,
+html.js .download-btn:active {
+  transform: translateY(0);
+}
+
+/* ---------- Focus rings (sky-blue accent) ---------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(120, 205, 230, 0.6);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  html.js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .scroll-progress { display: none; }
+  html.js .section:hover::before,
+  html.js .section-card:hover::before,
+  html.js .prompt-card:hover::before,
+  html.js .gate:hover::before {
+    transform: scaleY(0);
+  }
+  html.js .btn:hover,
+  html.js .button-primary:hover,
+  html.js .download-btn:hover,
+  html.js .resource-card:hover {
+    transform: none;
+  }
+}
