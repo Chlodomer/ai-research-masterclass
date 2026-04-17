@@ -78,24 +78,14 @@
     line-height: 1.4;
   }
   .header .right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     flex-shrink: 0;
     margin-top: 4px;
   }
-  .header .uni-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    line-height: 1.3;
+  .header .biu-lockup {
+    height: 64px;
+    width: auto;
+    display: block;
   }
-  .header .uni-text .he { font-size: 11px; font-weight: 700; }
-  .header .uni-text .en { font-size: 9px; color: var(--blue); letter-spacing: 0.03em; }
-  .header .logo-circle {
-    width: 44px; height: 44px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: var(--green);
-  }
-  .header .logo-circle img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.45); }
 
   /* Info bar */
   .info-bar {
@@ -422,13 +412,7 @@
       <div class="sub">Faculty Master Class &bull; Prof. Yaniv Fox</div>
     </div>
     <div class="right">
-      <div class="uni-text">
-        <div class="he">אוניברסיטת בר-אילן</div>
-        <div class="en">Bar-Ilan University</div>
-      </div>
-      <div class="logo-circle">
-        <img src="biu-icon-tight.png" alt="BIU">
-      </div>
+      <img class="biu-lockup" src="biu-lockup.png" alt="Bar-Ilan University">
     </div>
   </div>
 
@@ -442,7 +426,7 @@
   <!-- WORKSHOP CONTEXT -->
   <div class="workshop-context">
     <h2>About the Workshop</h2>
-    <p class="intro-copy">On April 16, 2026, dozens of Bar-Ilan researchers spent two and a half hours on a single question: how to use today's AI tools to move from a half-formed research idea to a complete proposal draft, without outsourcing the thinking. The workshop walked through four phases (writing a structured context brief, generating and verifying a bibliography, synthesising an argument, and drafting a funded-ready proposal), each with specific prompts, guardrails, and a verification discipline. Everything on this page is the output: the prompts used, a live form for writing your own context brief, a verification checklist, and the full ISF proposal anatomy. Taken together, they contain every resource you need to reproduce the workshop's lessons on your own research.</p>
+    <p class="intro-copy">On April 16, 2026, dozens of Bar-Ilan researchers spent two and a half hours on a single question: how to use today's AI tools to move from a half-formed research idea to a complete proposal draft, without outsourcing the thinking. The workshop walked through four phases (writing a structured context brief, generating and verifying a bibliography, synthesizing an argument, and drafting a funded-ready proposal), each with specific prompts, guardrails, and a verification discipline. Everything on this page is the output: the prompts used, a live form for writing your own context brief, a verification checklist, and the full ISF proposal anatomy. Taken together, they contain every resource you need to reproduce the workshop's lessons on your own research.</p>
 
     <div class="workshop-anim is-playing" id="workshopAnim">
       <iframe src="idea-to-proposal.html" title="Idea to Proposal — animation" loading="lazy"></iframe>

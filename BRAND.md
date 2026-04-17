@@ -49,7 +49,7 @@ Rules:
 - **Sky-blue is interactive-only**: focus rings, scroll progress, hover accent
   lines, small highlights in the header badge. Do not use it for headings or
   static decorations.
-- **Backgrounds stay warm.** Cream or white. Never neutral grey.
+- **Backgrounds stay warm.** Cream or white. Never neutral gray.
 - **Avoid pure black.** Use `--text`.
 
 ### Typography
@@ -107,21 +107,16 @@ Scale (body baseline 16–17px):
     </div>
   </div>
   <div class="right-side">
-    <div class="uni-text">
-      <div class="he">אוניברסיטת בר-אילן</div>
-      <div class="en">Bar-Ilan University</div>
-    </div>
-    <div class="logo-circle">
-      <img src="biu-icon-tight.png" alt="BIU">
-    </div>
+    <img class="biu-lockup" src="biu-lockup.png" alt="Bar-Ilan University">
   </div>
 </div>
 ```
 
 - Background is the signature `linear-gradient(135deg, #00493d, #002e1a)`.
-- Logo image is scaled **1.45×** inside a 40px circular mask; do not resize the
-  source asset.
-- Hebrew name sits above the English, both right-aligned.
+- `biu-lockup.png` is the official lockup (microscope icon + bilingual
+  wordmark) on a transparent background. Default height 48px; scale to
+  64px in oversized landing-page headers. Never stretch, recolor, or
+  substitute with the icon alone unless space is critical.
 - Badge pill is sky-blue on dark green.
 
 ### Title bar
@@ -193,7 +188,7 @@ really belongs.
 
 ### Iconography
 
-**Rule: no emoji, no flat full-colour icons, no illustrations.**
+**Rule: no emoji, no flat full-color icons, no illustrations.**
 
 Use inline line SVGs with these attributes:
 
@@ -204,7 +199,7 @@ Use inline line SVGs with these attributes:
 ```
 
 - Size with CSS (`width`/`height`), never inline attributes.
-- Colour inherits from the parent via `currentColor` — usually `--green`.
+- Color inherits from the parent via `currentColor` — usually `--green`.
 - Style is _abstract geometry_, not figurative. Prefer rectangles, circles,
   simple paths.
 - The library established in `index.html` covers: form-with-lines, layered
@@ -213,7 +208,7 @@ Use inline line SVGs with these attributes:
 
 ### Info boxes, hints, callouts
 
-Light-coloured rectangles with a 1px border matching the tint:
+Light-colored rectangles with a 1px border matching the tint:
 - Neutral hint → sky-blue light (`#eef8fc`) on sky-blue border.
 - Warning → amber light (`#fffbeb`) on amber border.
 - Success → mint (`#edf7e8`) on green border.
@@ -282,7 +277,7 @@ before the CSSOM paints.
 ## Don'ts
 
 - **No emoji as iconography.** Abstract line SVGs only.
-- **No bright colours outside the token list.** Resist the urge to add a third
+- **No bright colors outside the token list.** Resist the urge to add a third
   accent. If something needs emphasis, use weight, size, or the sky-blue accent
   line — not a new hue.
 - **No heavy shadows.** Keep blur radius under 20px. Elevation, not depth.
@@ -299,7 +294,9 @@ before the CSSOM paints.
 
 1. Copy `brand-starter.html` as your first page.
 2. Copy `assets/site.css` and `assets/site.js` into the new project's `assets/`.
-3. Copy `biu-icon-tight.png` (and optionally `biu-logo.png`) into the project root.
+3. Copy `biu-lockup.png` into the project root. (The icon-only variants
+   `biu-icon-tight.png` / `biu-logo.png` are available if you need them,
+   but the header uses the lockup.)
 4. Edit the badge date, page title, and body sections. Leave the header,
    nav, and footer patterns intact.
 5. Deploy to GitHub Pages (repository Settings → Pages → Source: `main` / root).

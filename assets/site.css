@@ -135,6 +135,13 @@ html.js .video-toggle:active {
   transform: translateY(0);
 }
 
+/* ---------- BIU lockup image in the header ---------- */
+.biu-header .biu-lockup {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
 /* ---------- "Back to Home" nav link ---------- */
 html.js .nav-home {
   background-image: linear-gradient(90deg, rgba(120, 205, 230, 0.28), rgba(120, 205, 230, 0) 72%);
