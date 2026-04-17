@@ -132,6 +132,50 @@ html.js .download-btn:active {
   transform: translateY(0);
 }
 
+/* ---------- "Back to Home" nav link ---------- */
+html.js .nav-home {
+  background-image: linear-gradient(90deg, rgba(120, 205, 230, 0.28), rgba(120, 205, 230, 0) 72%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  background-position: left center;
+  transition:
+    background-size 440ms var(--ease-out),
+    color 240ms var(--ease-out),
+    text-indent 280ms var(--ease-out);
+}
+html.js .nav-home:hover {
+  background-size: 100% 100%;
+  text-indent: -4px;
+  color: var(--polish-green);
+}
+
+/* ---------- Download buttons (PDF, ISF) ---------- */
+html.js .download-btn {
+  transition:
+    transform 220ms var(--ease-out),
+    box-shadow 300ms var(--ease-out),
+    background 260ms var(--ease-out);
+}
+html.js .download-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 44px -18px rgba(0, 73, 61, 0.55);
+}
+html.js .download-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px -14px rgba(0, 73, 61, 0.45);
+}
+html.js .download-btn svg {
+  transition: transform 300ms var(--ease-out);
+}
+html.js .download-btn:hover svg {
+  animation: download-bounce 720ms var(--ease-out);
+}
+@keyframes download-bounce {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(4px); }
+  100% { transform: translateY(0); }
+}
+
 /* ---------- Focus rings (sky-blue accent) ---------- */
 a:focus-visible,
 button:focus-visible,
@@ -164,4 +208,6 @@ select:focus-visible {
   html.js .resource-card:hover {
     transform: none;
   }
+  html.js .download-btn:hover svg { animation: none; }
+  html.js .nav-home:hover { text-indent: 0; }
 }
