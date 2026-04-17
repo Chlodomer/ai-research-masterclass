@@ -1,0 +1,320 @@
+<!--
+  BIU Web Brand Starter
+  =====================
+  A minimal, self-contained starting point for a new BIU-branded page.
+  Duplicate this file and edit the sections marked TODO. For the brand
+  rationale and token reference see BRAND.md.
+
+  To adopt on a new project, copy:
+    - brand-starter.html (this file) → rename to your page name
+    - assets/site.css, assets/site.js
+    - biu-icon-tight.png (logo)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TODO Page Title — AI Initiatives</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --green: #00493d;
+    --green-dark: #002e1a;
+    --green-med: #007a4a;
+    --mint: #eef6e6;
+    --bg: #f5faf0;
+    --card: #ffffff;
+    --border: #d4e4c8;
+    --text: #1a1a1a;
+    --muted: #4a6040;
+    --blue: #78CDE6;
+    --blue-dark: #0e5f7a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: var(--bg);
+    padding: 24px 16px 80px;
+  }
+
+  .container {
+    max-width: 1100px;
+    width: 92%;
+    margin: 0 auto;
+  }
+
+  /* BIU header */
+  .biu-header {
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    color: white;
+    padding: 18px 28px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .biu-header .badge {
+    background: var(--blue);
+    color: var(--green-dark);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.06em;
+    display: inline-block;
+  }
+  .biu-header .date {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-top: 6px;
+  }
+  .biu-header .right-side {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .biu-header .uni-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.3;
+  }
+  .biu-header .uni-text .he { font-size: 11px; font-weight: 700; color: white; }
+  .biu-header .uni-text .en { font-size: 9px; color: var(--blue); letter-spacing: 0.03em; }
+  .biu-header .logo-circle {
+    width: 40px; height: 40px; border-radius: 50%;
+    overflow: hidden; flex-shrink: 0; background: var(--green);
+  }
+  .biu-header .logo-circle img {
+    width: 100%; height: 100%; object-fit: cover;
+    transform: scale(1.45);
+  }
+
+  /* Back-to-home nav */
+  .nav-home {
+    display: block;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--green);
+    text-decoration: none;
+  }
+  .nav-home:hover { background: var(--mint); }
+
+  /* Title bar */
+  .title-bar {
+    background: var(--mint);
+    border-bottom: 3px solid var(--blue);
+    border-radius: 0 0 12px 12px;
+    padding: 22px 28px;
+    margin-bottom: 32px;
+    position: relative;
+    text-align: center;
+  }
+  .title-bar::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--green);
+  }
+  .title-bar .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: #e8f4e0;
+    border: 1px solid #b8d4a8;
+    border-radius: 100px;
+    padding: 4px 14px;
+    margin-bottom: 14px;
+  }
+  .title-bar h1 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 38px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.2;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+  .title-bar .lede {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Section / card */
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+  }
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .section-num {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--green);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .section-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .section-header .why {
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 28px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--green), var(--green-med));
+    color: white;
+    width: 100%;
+    justify-content: center;
+  }
+  .btn-primary:hover { background: #003020; }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--green), var(--green-med));
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 73, 61, 0.22);
+  }
+  .download-btn svg { width: 20px; height: 20px; }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  footer a { color: var(--green); text-decoration: none; }
+</style>
+
+<script>document.documentElement.classList.add("js");</script>
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- BIU HEADER: edit badge and date -->
+  <div class="biu-header">
+    <div class="left-side">
+      <div>
+        <div class="badge">AI INITIATIVES</div>
+        <div class="date">TODO Month Year</div>
+      </div>
+    </div>
+    <div class="right-side">
+      <div class="uni-text">
+        <div class="he">אוניברסיטת בר-אילן</div>
+        <div class="en">Bar-Ilan University</div>
+      </div>
+      <div class="logo-circle">
+        <img src="biu-icon-tight.png" alt="BIU">
+      </div>
+    </div>
+  </div>
+
+  <!-- BACK-TO-HOME: delete this line on the landing page -->
+  <a class="nav-home" href="index.html">&larr; Back to Home</a>
+
+  <!-- TITLE BAR: edit eyebrow, h1, lede -->
+  <div class="title-bar">
+    <div class="eyebrow">TODO Section Label</div>
+    <h1>TODO Page Title</h1>
+    <p class="lede">A short subtitle or lede. One sentence, two at most.</p>
+  </div>
+
+  <!-- BODY SECTIONS: replicate the pattern below for each block -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <h2>Section title</h2>
+        <div class="why">One-line purpose or subtitle.</div>
+      </div>
+    </div>
+    <p>Body content. Cards fade in as you scroll; a sky-blue accent line draws
+    down the left edge on hover.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <h2>Another section</h2>
+        <div class="why">Optional subtitle.</div>
+      </div>
+    </div>
+    <p>Replace this with real content.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    TODO Project Name &bull; Bar-Ilan University &bull; TODO Month Year<br>
+    <a href="https://github.com/Chlodomer">GitHub</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
