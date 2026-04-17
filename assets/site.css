@@ -113,7 +113,8 @@ html.js .resource-card:hover {
 /* ---------- Button polish ---------- */
 html.js .btn,
 html.js .button-primary,
-html.js .download-btn {
+html.js .download-btn,
+html.js .video-toggle {
   transition:
     transform 160ms var(--ease-out),
     box-shadow 280ms var(--ease-out),
@@ -122,13 +123,15 @@ html.js .download-btn {
 }
 html.js .btn:hover,
 html.js .button-primary:hover,
-html.js .download-btn:hover {
+html.js .download-btn:hover,
+html.js .video-toggle:hover {
   transform: translateY(-1px);
   box-shadow: 0 12px 32px -16px rgba(0, 73, 61, 0.45);
 }
 html.js .btn:active,
 html.js .button-primary:active,
-html.js .download-btn:active {
+html.js .download-btn:active,
+html.js .video-toggle:active {
   transform: translateY(0);
 }
 
@@ -205,6 +208,7 @@ select:focus-visible {
   html.js .btn:hover,
   html.js .button-primary:hover,
   html.js .download-btn:hover,
+  html.js .video-toggle:hover,
   html.js .resource-card:hover {
     transform: none;
   }
