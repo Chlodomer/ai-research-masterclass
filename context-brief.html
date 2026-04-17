@@ -391,6 +391,28 @@
   .nav-home:hover {
     background: #eef6e6;
   }
+
+  .save-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    padding: 8px 4px;
+    margin-bottom: 8px;
+  }
+  .save-status .clear-saved {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 13px;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+  }
+  .save-status .clear-saved:hover { color: var(--accent); }
 </style>
 </head>
 <body>
@@ -554,6 +576,12 @@
   <textarea id="f_sensitive" class="short" placeholder="Anything the AI should tread carefully around"></textarea>
 </div>
 
+<!-- SAVE STATUS -->
+<div class="save-status">
+  <span id="saveStatus">Progress is saved automatically in your browser</span>
+  <button type="button" class="clear-saved" onclick="clearSaved()">Clear saved progress</button>
+</div>
+
 <!-- GENERATE -->
 <button class="btn btn-primary" onclick="generate()">Generate Context Brief</button>
 
@@ -575,6 +603,100 @@
 </div>
 
 <script>
+const STORAGE_KEY = 'context-brief-draft-v1';
+const STATIC_FIELDS = ['f_about','f_question','f_novel','f_keytext','f_notlook','f_pitch','f_aim1','f_aim2','f_aim3','f_feasibility','f_noclaim','f_sensitive'];
+
+function collectState() {
+  const state = { fields: {}, terms: [], scholars: [] };
+  STATIC_FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) state.fields[id] = el.value;
+  });
+  document.querySelectorAll('#termRows .term-row').forEach(r => {
+    const inputs = r.querySelectorAll('input');
+    state.terms.push([inputs[0].value, inputs[1].value]);
+  });
+  document.querySelectorAll('#scholarRows .scholar-row').forEach(r => {
+    const inputs = r.querySelectorAll('input');
+    state.scholars.push([inputs[0].value, inputs[1].value]);
+  });
+  return state;
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(collectState()));
+    setStatus('Saved ' + new Date().toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'}));
+  } catch (e) {
+    setStatus('Could not save (storage blocked?)');
+  }
+}
+
+function restoreState() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return false;
+  let state;
+  try { state = JSON.parse(raw); } catch { return false; }
+
+  if (state.fields) {
+    Object.entries(state.fields).forEach(([id, v]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = v;
+    });
+  }
+
+  if (Array.isArray(state.terms) && state.terms.length) {
+    const container = document.getElementById('termRows');
+    const existing = container.querySelectorAll('.term-row').length;
+    for (let i = existing; i < state.terms.length; i++) addTermRow();
+    const rows = container.querySelectorAll('.term-row');
+    state.terms.forEach((t, i) => {
+      const inputs = rows[i].querySelectorAll('input');
+      inputs[0].value = t[0] || '';
+      inputs[1].value = t[1] || '';
+    });
+  }
+
+  if (Array.isArray(state.scholars) && state.scholars.length) {
+    const container = document.getElementById('scholarRows');
+    const existing = container.querySelectorAll('.scholar-row').length;
+    for (let i = existing; i < state.scholars.length; i++) addScholarRow();
+    const rows = container.querySelectorAll('.scholar-row');
+    state.scholars.forEach((s, i) => {
+      const inputs = rows[i].querySelectorAll('input');
+      inputs[0].value = s[0] || '';
+      inputs[1].value = s[1] || '';
+    });
+  }
+
+  return true;
+}
+
+function clearSaved() {
+  if (!confirm('Clear all saved progress and reset the form?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
+function setStatus(text) {
+  const el = document.getElementById('saveStatus');
+  if (el) el.textContent = text;
+}
+
+let saveTimer = null;
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveState, 400);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const restored = restoreState();
+  if (restored) setStatus('Restored your previous draft');
+  document.addEventListener('input', e => {
+    if (e.target.matches('input, textarea')) scheduleSave();
+  });
+});
+
 function addTermRow() {
   const row = document.createElement('div');
   row.className = 'term-row';
