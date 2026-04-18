@@ -86,11 +86,28 @@
   function init() {
     buildNav();
     const targets = Array.from(document.querySelectorAll(REVEAL_SELECTORS));
-    targets.forEach(el => {
-      if (!el.hasAttribute('data-reveal')) el.setAttribute('data-reveal', '');
+    const viewportH = window.innerHeight;
+
+    // Measure first (before mutating any styles) to avoid forced layout
+    // thrashing. Anything already in the initial viewport is marked
+    // visible in the same pass as [data-reveal] is applied, so the
+    // browser batches styles and no fade-in fires. Only off-screen
+    // elements animate as they scroll into view.
+    const measurements = targets.map(el => {
+      const rect = el.getBoundingClientRect();
+      return [el, rect.top < viewportH && rect.bottom > 0];
+    });
+    const pending = [];
+    measurements.forEach(([el, inViewport]) => {
+      el.setAttribute('data-reveal', '');
+      if (inViewport) {
+        el.classList.add('is-visible');
+      } else {
+        pending.push(el);
+      }
     });
 
-    if (!reduced && 'IntersectionObserver' in window) {
+    if (!reduced && 'IntersectionObserver' in window && pending.length) {
       const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -99,9 +116,9 @@
           }
         });
       }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-      targets.forEach(t => io.observe(t));
+      pending.forEach(t => io.observe(t));
     } else {
-      targets.forEach(t => t.classList.add('is-visible'));
+      pending.forEach(t => t.classList.add('is-visible'));
     }
 
     if (!reduced) {
