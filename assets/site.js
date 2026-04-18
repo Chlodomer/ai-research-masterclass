@@ -31,12 +31,13 @@
 
   const PAGES = [
     { href: 'index.html',          label: 'Home' },
-    { href: 'context-brief.html',  label: 'Context Brief' },
+    { href: 'context-brief.html',  label: 'Context Brief', children: [
+      { href: 'demo-filled.html',  label: 'Filled Example' }
+    ]},
     { href: 'workshop-guide.html', label: 'Workshop Guide' },
     { href: 'verification.html',   label: 'Verification Checklist' },
     { href: 'isf-reference.html',  label: 'ISF Proposal Structure' },
     { href: 'packet.html',         label: 'Workshop Packet' },
-    { href: 'demo-filled.html',    label: 'Demo Example' },
     { href: 'about.html',          label: 'About AI Initiatives' }
   ];
 
@@ -44,10 +45,17 @@
     if (document.querySelector('.site-nav')) return;
     const current = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
 
-    const items = PAGES.map(p => {
+    function renderPage(p, depth) {
       const active = p.href === current || (current === '' && p.href === 'index.html');
-      return `<a class="site-nav-item${active ? ' is-active' : ''}" href="${p.href}"${active ? ' aria-current="page"' : ''}>${p.label}</a>`;
-    }).join('');
+      const classes = ['site-nav-item'];
+      if (active) classes.push('is-active');
+      if (depth > 0) classes.push('is-child');
+      const ariaCurrent = active ? ' aria-current="page"' : '';
+      const main = `<a class="${classes.join(' ')}" href="${p.href}"${ariaCurrent}>${p.label}</a>`;
+      const kids = (p.children || []).map(c => renderPage(c, depth + 1)).join('');
+      return main + kids;
+    }
+    const items = PAGES.map(p => renderPage(p, 0)).join('');
 
     const root = document.createElement('div');
     root.className = 'site-nav';

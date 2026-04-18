@@ -283,6 +283,36 @@ html.js .video-toggle:active {
   border-radius: 0 2px 2px 0;
 }
 
+/* Nested child nav items (e.g. Filled Example under Context Brief) */
+.site-nav-item.is-child {
+  padding: 9px 14px 9px 30px;
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.site-nav-item.is-child::after {
+  content: '';
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  width: 6px;
+  height: 1px;
+  background: #b8d4a8;
+  transform: translateY(-50%);
+  transition: width 220ms var(--ease-out), background 220ms var(--ease-out);
+}
+.site-nav-item.is-child:hover {
+  padding-left: 34px;
+}
+.site-nav-item.is-child:hover::after {
+  width: 10px;
+  background: var(--polish-green);
+}
+.site-nav-item.is-child.is-active {
+  color: var(--polish-green);
+  font-weight: 600;
+}
+
 html.nav-open body { overflow: hidden; }
 
 /* ---------- "Back to Home" nav link ---------- */
@@ -302,21 +332,24 @@ html.js .nav-home:hover {
   color: var(--polish-green);
 }
 
-/* ---------- Gradient pill CTAs (download buttons + video toggle) ---------- */
+/* ---------- Gradient pill CTAs (download buttons, video toggle, demo link) ---------- */
 html.js .download-btn,
-html.js .video-toggle {
+html.js .video-toggle,
+html.js .demo-btn {
   transition:
     transform 220ms var(--ease-out),
     box-shadow 300ms var(--ease-out),
     background 260ms var(--ease-out);
 }
 html.js .download-btn:hover,
-html.js .video-toggle:hover {
+html.js .video-toggle:hover,
+html.js .demo-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 20px 44px -18px rgba(0, 73, 61, 0.55);
 }
 html.js .download-btn:active,
-html.js .video-toggle:active {
+html.js .video-toggle:active,
+html.js .demo-btn:active {
   transform: translateY(-1px);
   box-shadow: 0 10px 22px -14px rgba(0, 73, 61, 0.45);
 }

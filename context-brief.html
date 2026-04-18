@@ -413,6 +413,29 @@
     font-family: inherit;
   }
   .save-status .clear-saved:hover { color: var(--accent); }
+
+  .demo-link {
+    text-align: center;
+    margin: 0 0 28px;
+  }
+  .demo-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 24px;
+    background: linear-gradient(135deg, var(--accent), #007a4a);
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 6px 20px -8px rgba(0, 73, 61, 0.35);
+  }
+  .demo-btn svg {
+    width: 14px;
+    height: 14px;
+  }
 </style>
 <script>document.documentElement.classList.add("js");</script>
 <link rel="stylesheet" href="assets/site.css">
@@ -441,6 +464,13 @@
     <h1>Context Brief</h1>
     <p>Translate what you already know about your research into structured context that makes AI genuinely useful. Each section maps to a workshop module.</p>
   </header>
+</div>
+
+<div class="demo-link">
+  <a class="demo-btn" href="demo-filled.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+    <span>See a filled example</span>
+  </a>
 </div>
 
 <!-- SECTION 1 -->
