@@ -69,6 +69,20 @@
     const backdrop = root.querySelector('.site-nav-backdrop');
     const panel = root.querySelector('.site-nav-panel');
 
+    // Align the button's vertical center with the BIU header's center.
+    // Headers vary in padding/size (landing is taller), so measure rather
+    // than guess. Runs on initial layout only; if the user scrolls the
+    // header away, the fixed button stays put.
+    const header = document.querySelector('.biu-header') || document.querySelector('.header');
+    if (header) {
+      requestAnimationFrame(() => {
+        const rect = header.getBoundingClientRect();
+        const btnH = toggle.offsetHeight || 34;
+        const top = Math.max(16, Math.round(rect.top + rect.height / 2 - btnH / 2));
+        toggle.style.top = top + 'px';
+      });
+    }
+
     function setOpen(open) {
       root.classList.toggle('is-open', open);
       toggle.setAttribute('aria-expanded', String(open));
