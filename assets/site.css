@@ -302,18 +302,21 @@ html.js .nav-home:hover {
   color: var(--polish-green);
 }
 
-/* ---------- Download buttons (PDF, ISF) ---------- */
-html.js .download-btn {
+/* ---------- Gradient pill CTAs (download buttons + video toggle) ---------- */
+html.js .download-btn,
+html.js .video-toggle {
   transition:
     transform 220ms var(--ease-out),
     box-shadow 300ms var(--ease-out),
     background 260ms var(--ease-out);
 }
-html.js .download-btn:hover {
+html.js .download-btn:hover,
+html.js .video-toggle:hover {
   transform: translateY(-3px);
   box-shadow: 0 20px 44px -18px rgba(0, 73, 61, 0.55);
 }
-html.js .download-btn:active {
+html.js .download-btn:active,
+html.js .video-toggle:active {
   transform: translateY(-1px);
   box-shadow: 0 10px 22px -14px rgba(0, 73, 61, 0.45);
 }
