@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About AI Initiatives — Bar-Ilan University</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --green: #00493d;
+    --green-dark: #002e1a;
+    --green-med: #007a4a;
+    --mint: #eef6e6;
+    --bg: #f5faf0;
+    --card: #ffffff;
+    --border: #d4e4c8;
+    --text: #1a1a1a;
+    --muted: #4a6040;
+    --blue: #78CDE6;
+    --blue-dark: #0e5f7a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: var(--bg);
+    padding: 24px 16px 80px;
+  }
+
+  .container {
+    max-width: 1100px;
+    width: 92%;
+    margin: 0 auto;
+  }
+
+  .biu-header {
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    color: white;
+    padding: 18px 28px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .biu-header .badge {
+    background: var(--blue);
+    color: var(--green-dark);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.06em;
+    display: inline-block;
+  }
+  .biu-header .date {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-top: 6px;
+  }
+  .biu-header .right-side {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-home {
+    display: block;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--green);
+    text-decoration: none;
+  }
+  .nav-home:hover { background: var(--mint); }
+
+  .title-bar {
+    background: var(--mint);
+    border-bottom: 3px solid var(--blue);
+    border-radius: 0 0 12px 12px;
+    padding: 22px 28px;
+    margin-bottom: 32px;
+    position: relative;
+    text-align: center;
+  }
+  .title-bar::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--green);
+  }
+  .title-bar .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: #e8f4e0;
+    border: 1px solid #b8d4a8;
+    border-radius: 100px;
+    padding: 4px 14px;
+    margin-bottom: 14px;
+  }
+  .title-bar h1 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 38px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.2;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+  .title-bar .lede {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+  }
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .section-num {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--green);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .section-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .section-header .why {
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .section p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .section p + p { margin-top: 14px; }
+  .section p em { color: var(--green); font-style: italic; }
+
+  /* Intro: portrait + text side by side */
+  .about-intro {
+    display: grid;
+    grid-template-columns: minmax(220px, 300px) 1fr;
+    gap: 36px;
+    align-items: start;
+  }
+  .portrait-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .portrait-wrap img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    box-shadow: 0 12px 36px -14px rgba(0, 73, 61, 0.28);
+  }
+  .portrait-caption {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+    font-weight: 600;
+    padding: 0 2px;
+  }
+  .portrait-caption span {
+    display: block;
+    font-weight: 400;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 2px;
+  }
+  .intro-text p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .intro-text p + p { margin-top: 14px; }
+
+  @media (max-width: 720px) {
+    .about-intro {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .portrait-wrap {
+      max-width: 260px;
+    }
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  footer a { color: var(--green); text-decoration: none; }
+</style>
+
+<script>document.documentElement.classList.add("js");</script>
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="biu-header">
+    <div class="left-side">
+      <div>
+        <div class="badge">AI INITIATIVES</div>
+        <div class="date">Bar-Ilan University</div>
+      </div>
+    </div>
+    <div class="right-side">
+      <img class="biu-lockup" src="biu-lockup.png" alt="Bar-Ilan University">
+    </div>
+  </div>
+
+  <a class="nav-home" href="index.html">&larr; Back to Workshop Home</a>
+
+  <div class="title-bar">
+    <div class="eyebrow">About</div>
+    <h1>AI Initiatives at Bar-Ilan</h1>
+    <p class="lede">Training, policy, and research for a university learning to work with AI.</p>
+  </div>
+
+  <!-- Intro: portrait + text -->
+  <div class="section about-intro">
+    <div class="portrait-wrap">
+      <img src="yaniv-fox.jpg" alt="Prof. Yaniv Fox">
+      <div class="portrait-caption">
+        Prof. Yaniv Fox
+        <span>Head of AI Initiatives, Bar-Ilan University</span>
+      </div>
+    </div>
+    <div class="intro-text">
+      <p>AI Initiatives is Bar-Ilan University's program for applying generative and agentic AI to research, teaching, and academic administration. It exists to answer a practical question: how should a research university, faculty by faculty and student by student, adopt these tools without undermining the standards that make its work credible?</p>
+      <p>The program is led by Prof. Yaniv Fox, out of the Department of General History. Its remit spans four areas: training faculty and students, drafting institutional policy, representing the university in national forums, and publishing applied research on what AI does and doesn't change about scholarly work.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <h2>Training and curricula</h2>
+        <div class="why">Coursework built around the actual work faculty and students already do.</div>
+      </div>
+    </div>
+    <p>AI Initiatives designs and delivers coursework across three populations: faculty, students, and administrative staff. Faculty workshops cover the full research cycle, from literature discovery to proposal drafting; this master class site is one output. Student courses include applied AI for practical use (AI Practical Applications, Financial AI) and run on a credit-bearing basis. Staff sessions focus on research-support roles such as librarians, grant administrators, and communications teams.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <h2>Policy and ethics</h2>
+        <div class="why">The ground rules for AI use in teaching and research.</div>
+      </div>
+    </div>
+    <p>The program drafted Bar-Ilan's AI Ethics Code, the institutional framework for responsible AI use in teaching, assessment, and research. It guides departmental decisions on authorship, student work, attribution, and academic integrity, and is revised as the tools and norms shift.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div>
+        <h2>National-level representation</h2>
+        <div class="why">Bringing the view from inside a university to policy rooms.</div>
+      </div>
+    </div>
+    <p>Prof. Fox chairs the AI in Teaching and Learning Sub-committee of Israel's Council for Higher Education (מל"ג / ות"ת), appointed in March 2026, and represents Bar-Ilan on the Knesset Subcommittee on Artificial Intelligence. Both roles are aimed at keeping national guidance on AI in higher education grounded in what is actually happening on campuses.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div>
+        <h2>Applied research</h2>
+        <div class="why">Publishing on what AI does and doesn't change in academic work.</div>
+      </div>
+    </div>
+    <p>The program publishes applied research on AI in scholarship, with an emphasis on humanities methodology. <em>Using Generative AI in Historical Practice</em> (Cambridge University Press, 2026) is the first monograph-length treatment. Journal articles in progress address AI-assisted bibliography, asymmetric transparency in student-AI interaction, and the instructor-as-architect model of AI-native teaching.</p>
+  </div>
+
+  <footer>
+    Prof. Yaniv Fox &bull; yaniv.fox@biu.ac.il<br>
+    Department of General History &bull; Bar-Ilan University &bull; Ramat Gan<br>
+    <a href="https://github.com/Chlodomer/ai-research-masterclass">Workshop Materials on GitHub</a>
+  </footer>
+
+</div>
+
+</body>
+</html>

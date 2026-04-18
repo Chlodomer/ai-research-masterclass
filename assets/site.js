@@ -31,6 +31,7 @@
 
   const PAGES = [
     { href: 'index.html',          label: 'Home' },
+    { href: 'about.html',          label: 'About AI Initiatives' },
     { href: 'context-brief.html',  label: 'Context Brief' },
     { href: 'workshop-guide.html', label: 'Workshop Guide' },
     { href: 'verification.html',   label: 'Verification Checklist' },
