@@ -231,6 +231,73 @@
     line-height: 1.8;
   }
   footer a { color: var(--green); text-decoration: none; }
+
+  /* Socials */
+  .socials-block {
+    padding: 28px 8px 8px;
+    text-align: center;
+  }
+  .socials-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .socials-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s, background 0.3s;
+  }
+  .social-link:hover {
+    border-color: var(--green);
+    box-shadow: 0 8px 24px -10px rgba(0, 73, 61, 0.22);
+    transform: translateY(-2px);
+    background: linear-gradient(165deg, #ffffff 0%, #eef6e6 100%);
+  }
+  .social-link .social-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--green);
+    flex-shrink: 0;
+  }
+  .social-link .social-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    text-align: left;
+  }
+  .social-link .social-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .social-link .social-handle {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--green);
+  }
+
+  @media (max-width: 520px) {
+    .socials-row { flex-direction: column; align-items: stretch; }
+    .social-link { justify-content: center; }
+  }
 </style>
 
 <script>document.documentElement.classList.add("js");</script>
@@ -273,6 +340,34 @@
     <div class="intro-text">
       <p>AI Initiatives at Bar-Ilan is a university-wide role for applying generative and agentic AI to research, teaching, and academic administration. It exists to answer a practical question: how should a research university, faculty by faculty and student by student, adopt these tools without undermining the standards that make its work credible?</p>
       <p>The role is held by Prof. Yaniv Fox, in the Department of General History. Its remit spans four areas: training and upskilling, drafting institutional policy, representing the university, and publishing applied research on what AI does and doesn't change about scholarly work.</p>
+    </div>
+  </div>
+
+  <!-- SOCIALS -->
+  <div class="socials-block">
+    <div class="socials-label">Elsewhere</div>
+    <div class="socials-row">
+      <a class="social-link" href="https://x.com/foxyaniv" target="_blank" rel="noopener noreferrer">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <span class="social-text">
+          <span class="social-label">X</span>
+          <span class="social-handle">@foxyaniv</span>
+        </span>
+      </a>
+      <a class="social-link" href="https://www.youtube.com/playlist?list=PL68imjOPCaFtUAdjcPGdtG0no6HDGLXgm" target="_blank" rel="noopener noreferrer">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.582 6.186a2.506 2.506 0 00-1.768-1.768C18.254 4 12 4 12 4s-6.254 0-7.814.418a2.506 2.506 0 00-1.768 1.768C2 7.746 2 12 2 12s0 4.254.418 5.814a2.506 2.506 0 001.768 1.768C5.746 20 12 20 12 20s6.254 0 7.814-.418a2.506 2.506 0 001.768-1.768C22 16.254 22 12 22 12s0-4.254-.418-5.814zM10 15.464V8.536L15.5 12 10 15.464z"/></svg>
+        <span class="social-text">
+          <span class="social-label">YouTube</span>
+          <span class="social-handle">Teaching videos</span>
+        </span>
+      </a>
+      <a class="social-link" href="https://www.youtube.com/playlist?list=PL68imjOPCaFswEUWMDgj6UvunDUseGYp5" target="_blank" rel="noopener noreferrer">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.582 6.186a2.506 2.506 0 00-1.768-1.768C18.254 4 12 4 12 4s-6.254 0-7.814.418a2.506 2.506 0 00-1.768 1.768C2 7.746 2 12 2 12s0 4.254.418 5.814a2.506 2.506 0 001.768 1.768C5.746 20 12 20 12 20s6.254 0 7.814-.418a2.506 2.506 0 001.768-1.768C22 16.254 22 12 22 12s0-4.254-.418-5.814zM10 15.464V8.536L15.5 12 10 15.464z"/></svg>
+        <span class="social-text">
+          <span class="social-label">YouTube</span>
+          <span class="social-handle">Short tutorials</span>
+        </span>
+      </a>
     </div>
   </div>
 
