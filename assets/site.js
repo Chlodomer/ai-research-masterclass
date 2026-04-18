@@ -29,7 +29,62 @@
     '.footer'
   ].join(',');
 
+  const PAGES = [
+    { href: 'index.html',          label: 'Home' },
+    { href: 'context-brief.html',  label: 'Context Brief' },
+    { href: 'workshop-guide.html', label: 'Workshop Guide' },
+    { href: 'verification.html',   label: 'Verification Checklist' },
+    { href: 'isf-reference.html',  label: 'ISF Proposal Structure' },
+    { href: 'packet.html',         label: 'Workshop Packet' },
+    { href: 'demo-filled.html',    label: 'Demo Example' }
+  ];
+
+  function buildNav() {
+    if (document.querySelector('.site-nav')) return;
+    const current = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+    const items = PAGES.map(p => {
+      const active = p.href === current || (current === '' && p.href === 'index.html');
+      return `<a class="site-nav-item${active ? ' is-active' : ''}" href="${p.href}"${active ? ' aria-current="page"' : ''}>${p.label}</a>`;
+    }).join('');
+
+    const root = document.createElement('div');
+    root.className = 'site-nav';
+    root.innerHTML = `
+      <button class="site-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="siteNavPanel">
+        <span class="nav-bar"></span><span class="nav-bar"></span><span class="nav-bar"></span>
+      </button>
+      <div class="site-nav-backdrop" aria-hidden="true"></div>
+      <aside class="site-nav-panel" id="siteNavPanel" aria-label="Workshop pages" aria-hidden="true">
+        <div class="site-nav-header">
+          <div class="site-nav-eyebrow">AI for Research</div>
+          <div class="site-nav-title">Workshop Pages</div>
+        </div>
+        <nav class="site-nav-list">${items}</nav>
+      </aside>
+    `;
+    document.body.prepend(root);
+
+    const toggle = root.querySelector('.site-nav-toggle');
+    const backdrop = root.querySelector('.site-nav-backdrop');
+    const panel = root.querySelector('.site-nav-panel');
+
+    function setOpen(open) {
+      root.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      panel.setAttribute('aria-hidden', String(!open));
+      toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      doc.classList.toggle('nav-open', open);
+    }
+    toggle.addEventListener('click', () => setOpen(!root.classList.contains('is-open')));
+    backdrop.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && root.classList.contains('is-open')) setOpen(false);
+    });
+  }
+
   function init() {
+    buildNav();
     const targets = Array.from(document.querySelectorAll(REVEAL_SELECTORS));
     targets.forEach(el => {
       if (!el.hasAttribute('data-reveal')) el.setAttribute('data-reveal', '');
