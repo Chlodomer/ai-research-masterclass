@@ -314,6 +314,66 @@
     color: var(--muted);
   }
   footer a { color: var(--green); text-decoration: none; }
+
+  /* Proposal Anatomy animation frame */
+  .anatomy-anim {
+    position: relative;
+    background: #0b1a2e;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    max-width: 820px;
+    margin: 0 auto 28px;
+    box-shadow: 0 14px 44px -18px rgba(0, 73, 61, 0.28);
+  }
+  .anatomy-anim iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    transition: opacity 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .anatomy-anim .anim-fallback {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .anatomy-anim.is-paused iframe { opacity: 0; }
+  .anatomy-anim.is-paused .anim-fallback { opacity: 1; }
+  .anatomy-anim .anim-pause {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.42);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background 220ms ease, transform 160ms ease;
+  }
+  .anatomy-anim .anim-pause:hover {
+    background: rgba(0, 0, 0, 0.62);
+    transform: scale(1.06);
+  }
+  .anatomy-anim .anim-pause svg {
+    width: 13px;
+    height: 13px;
+    fill: currentColor;
+  }
 </style>
 <script>document.documentElement.classList.add("js");</script>
 <link rel="stylesheet" href="assets/site.css">
@@ -343,6 +403,31 @@
 <div class="intro">
   <div class="intro-label">How to Use This Page</div>
   This is a cheat sheet, not a replacement for the official ISF guidelines. Each card below covers one section of the proposal: what goes in it, the page or word limit, and what reviewers actually look for. Keep the full guidelines open alongside this page when writing. The proposal is submitted in English via the ISF online system.
+</div>
+
+<!-- PROPOSAL ANATOMY ANIMATION -->
+<div class="anatomy-anim is-playing" id="anatomyAnim">
+  <iframe src="proposal-anatomy-standalone.html" title="ISF Proposal Anatomy — animation" loading="lazy"></iframe>
+  <svg class="anim-fallback" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="400" height="400" fill="#0b1a2e"/>
+    <g stroke="#78cde6" stroke-width="1.2" fill="none">
+      <rect x="120" y="100" width="200" height="40" rx="1"/>
+      <rect x="120" y="148" width="200" height="72" rx="1"/>
+      <rect x="120" y="228" width="200" height="32" rx="1"/>
+      <rect x="120" y="268" width="200" height="32" rx="1"/>
+      <line x1="80" y1="310" x2="340" y2="310" stroke-width="1.4"/>
+    </g>
+    <g stroke="#e6b86b" fill="#e6b86b" font-family="Georgia" font-size="10">
+      <text x="106" y="118" text-anchor="end">01</text>
+      <text x="106" y="188" text-anchor="end">02</text>
+      <text x="106" y="248" text-anchor="end">03</text>
+    </g>
+    <text x="200" y="350" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="20" fill="#eaf4ff">Proposal Anatomy</text>
+  </svg>
+  <button class="anim-pause" id="anatomyPause" aria-label="Pause animation" type="button">
+    <svg class="icon-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="3" width="4" height="10" rx="1"/><rect x="9" y="3" width="4" height="10" rx="1"/></svg>
+    <svg class="icon-play" viewBox="0 0 16 16" aria-hidden="true" style="display:none"><path d="M4 2.5v11a.5.5 0 0 0 .77.42l9-5.5a.5.5 0 0 0 0-.84l-9-5.5A.5.5 0 0 0 4 2.5z"/></svg>
+  </button>
 </div>
 
 <!-- DOWNLOAD BUTTON -->
@@ -626,6 +711,34 @@
 </footer>
 
 </div>
+
+<script>
+(function () {
+  const frame = document.getElementById('anatomyAnim');
+  const btn = document.getElementById('anatomyPause');
+  if (!frame || !btn) return;
+  const iframe = frame.querySelector('iframe');
+  const src = iframe.getAttribute('src');
+  const iconPause = btn.querySelector('.icon-pause');
+  const iconPlay = btn.querySelector('.icon-play');
+  let paused = false;
+  btn.addEventListener('click', () => {
+    paused = !paused;
+    frame.classList.toggle('is-paused', paused);
+    if (paused) {
+      iframe.src = 'about:blank';
+      btn.setAttribute('aria-label', 'Resume animation');
+      iconPause.style.display = 'none';
+      iconPlay.style.display = '';
+    } else {
+      iframe.src = src;
+      btn.setAttribute('aria-label', 'Pause animation');
+      iconPause.style.display = '';
+      iconPlay.style.display = 'none';
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
