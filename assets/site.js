@@ -31,13 +31,13 @@
 
   const PAGES = [
     { href: 'index.html',          label: 'Home' },
-    { href: 'about.html',          label: 'About AI Initiatives' },
     { href: 'context-brief.html',  label: 'Context Brief' },
     { href: 'workshop-guide.html', label: 'Workshop Guide' },
     { href: 'verification.html',   label: 'Verification Checklist' },
     { href: 'isf-reference.html',  label: 'ISF Proposal Structure' },
     { href: 'packet.html',         label: 'Workshop Packet' },
-    { href: 'demo-filled.html',    label: 'Demo Example' }
+    { href: 'demo-filled.html',    label: 'Demo Example' },
+    { href: 'about.html',          label: 'About AI Initiatives' }
   ];
 
   function buildNav() {
